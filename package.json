@@ -1,0 +1,21 @@
+{
+  "name": "gs-x-parser",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "gs-rollup -c",
+    "test:hello": "vitest run hello"
+  },
+  "dependencies": {
+    "gs-base": "latest"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/browser": "^3.2.4",
+    "@vue/test-utils": "^2.4.6",
+    "gs-rollup": "^1.0.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4",
+    "vue": "^3.5.30"
+  },
+  "type": "module"
+}
