@@ -1,4 +1,4 @@
-import { ITweet } from './ITweet';
+import { ITweet } from './index';
 
 export interface ITimeline {
   instructions?: ITimelineInstruction[];

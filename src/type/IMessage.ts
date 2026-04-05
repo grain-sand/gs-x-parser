@@ -1,5 +1,4 @@
-import {IUrlEntity, IUserEntities} from './IUser';
-import {IColorPalette, IExtMediaColor, IMediaSizes, IOriginalInfo} from './ITweet';
+import {IColorPalette, IExtMediaColor, IMediaSizes, IMediaStats, IOriginalInfo, IUrlEntity, IUserBase} from './index';
 
 export interface IConversationTimeline {
   status?: string;
@@ -77,66 +76,38 @@ export interface IOk {
   palette?: IColorPalette[];
 }
 
-export interface IMediaStats {
-  r?: string;
-  ttl?: number;
-}
-
 export interface IAltText {
   r?: string;
   ttl?: number;
 }
 
-export interface IMessageUser {
+export interface IMessageUser extends IUserBase {
   id?: number;
   id_str?: string;
-  name?: string;
-  screen_name?: string;
-  location?: string | null;
-  description?: string;
-  url?: string | null;
-  entities?: IUserEntities;
   protected?: boolean;
-  followers_count?: number;
-  friends_count?: number;
-  listed_count?: number;
-  created_at?: string;
-  favourites_count?: number;
   utc_offset?: number | null;
   time_zone?: string | null;
   geo_enabled?: boolean;
-  verified?: boolean;
-  statuses_count?: number;
   lang?: string | null;
   contributors_enabled?: boolean;
-  is_translator?: boolean;
   is_translation_enabled?: boolean;
   profile_background_color?: string;
   profile_background_image_url?: string | null;
   profile_background_image_url_https?: string | null;
   profile_background_tile?: boolean;
   profile_image_url?: string;
-  profile_image_url_https?: string;
   profile_link_color?: string;
   profile_sidebar_border_color?: string;
   profile_sidebar_fill_color?: string;
   profile_text_color?: string;
   profile_use_background_image?: boolean;
-  default_profile?: boolean;
-  default_profile_image?: boolean;
-  can_dm?: boolean | null;
   can_secret_dm?: boolean | null;
-  can_media_tag?: boolean;
-  following?: boolean;
   follow_request_sent?: boolean;
   notifications?: boolean;
   blocking?: boolean;
   subscribed_by?: boolean;
   blocked_by?: boolean;
-  want_retweets?: boolean;
   business_profile_state?: string;
-  translator_type?: string;
-  withheld_in_countries?: string[];
   followed_by?: boolean;
 }
 

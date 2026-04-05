@@ -1,4 +1,4 @@
-import { IUser, IUrlEntity } from './IUser';
+import {IMediaEntity, ITweetBase, IUser} from './index';
 
 export interface ITweet {
   __typename: string;
@@ -56,145 +56,17 @@ export interface ITweetViews {
   state?: string;
 }
 
-export interface ITweetLegacy {
+export interface ITweetLegacy extends ITweetBase {
   bookmark_count?: number;
   bookmarked?: boolean;
-  created_at?: string;
-  conversation_id_str?: string;
-  display_text_range?: number[];
-  entities?: ITweetEntities;
   extended_entities?: IExtendedEntities;
-  favorite_count?: number;
-  favorited?: boolean;
-  full_text?: string;
-  is_quote_status?: boolean;
-  lang?: string;
-  possibly_sensitive?: boolean;
   possibly_sensitive_editable?: boolean;
-  quote_count?: number;
-  reply_count?: number;
-  retweet_count?: number;
-  retweeted?: boolean;
   user_id_str?: string;
-  id_str?: string;
-  in_reply_to_screen_name?: string;
-  in_reply_to_status_id_str?: string;
-  in_reply_to_user_id_str?: string;
-  quoted_status_id_str?: string;
   quoted_status_permalink?: IQuotedStatusPermalink;
-}
-
-export interface ITweetEntities {
-  hashtags?: IHashtagEntity[];
-  media?: IMediaEntity[];
-  symbols?: any[];
-  timestamps?: any[];
-  urls?: IUrlEntity[];
-  user_mentions?: IUserMentionEntity[];
 }
 
 export interface IExtendedEntities {
   media?: IMediaEntity[];
-}
-
-export interface IHashtagEntity {
-  indices?: number[];
-  text?: string;
-}
-
-export interface IMediaEntity {
-  display_url?: string;
-  expanded_url?: string;
-  id_str?: string;
-  indices?: number[];
-  media_key?: string;
-  media_url_https?: string;
-  type?: string;
-  url?: string;
-  additional_media_info?: IAdditionalMediaInfo;
-  ext_media_availability?: IExtMediaAvailability;
-  sizes?: IMediaSizes;
-  original_info?: IOriginalInfo;
-  allow_download_status?: IAllowDownloadStatus;
-  video_info?: IVideoInfo;
-  media_results?: IMediaResults;
-  features?: IMediaFeatures;
-}
-
-export interface IAdditionalMediaInfo {
-  monetizable?: boolean;
-}
-
-export interface IExtMediaAvailability {
-  status?: string;
-}
-
-export interface IMediaSizes {
-  large?: IMediaSize;
-  medium?: IMediaSize;
-  small?: IMediaSize;
-  thumb?: IMediaSize;
-}
-
-export interface IMediaSize {
-  h?: number;
-  w?: number;
-  resize?: string;
-}
-
-export interface IOriginalInfo {
-  height?: number;
-  width?: number;
-  focus_rects?: IFocusRect[];
-}
-
-export interface IFocusRect {
-  x?: number;
-  y?: number;
-  w?: number;
-  h?: number;
-}
-
-export interface IAllowDownloadStatus {
-  allow_download?: boolean;
-}
-
-export interface IVideoInfo {
-  aspect_ratio?: number[];
-  duration_millis?: number;
-  variants?: IVideoVariant[];
-}
-
-export interface IVideoVariant {
-  bitrate?: number;
-  content_type?: string;
-  url?: string;
-}
-
-export interface IMediaResults {
-  result?: IMediaResult;
-}
-
-export interface IMediaResult {
-  media_key?: string;
-}
-
-export interface IMediaFeatures {
-  large?: IMediaFeature;
-  medium?: IMediaFeature;
-  small?: IMediaFeature;
-  orig?: IMediaFeature;
-}
-
-export interface IMediaFeature {
-  faces?: any[];
-}
-
-export interface IUserMentionEntity {
-  id_str?: string;
-  name?: string;
-  screen_name?: string;
-  indices?: number[];
 }
 
 export interface IQuickPromoteEligibility {
@@ -253,10 +125,6 @@ export interface IImageValue {
 }
 
 export interface IImageColorValue {
-  palette?: IColorPalette[];
-}
-
-export interface IExtMediaColor {
   palette?: IColorPalette[];
 }
 
