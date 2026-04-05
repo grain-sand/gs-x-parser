@@ -39,6 +39,8 @@ export interface ITweetBase {
   is_quote_status?: boolean;
   /** 引用状态ID字符串 */
   quoted_status_id_str?: string | null;
+  /** 转发状态ID字符串 */
+  retweeted_status_id_str?: string | null;
   /** 转发数 */
   retweet_count?: number;
   /** 点赞数 */

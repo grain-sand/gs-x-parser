@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "build": "gs-rollup -c",
-    "test:hello": "vitest run hello"
+    "test:hello": "vitest run hello",
+    "test": "vitest run",
+    "test:browser": "vitest run --environment browser"
   },
   "dependencies": {
     "gs-base": "latest"

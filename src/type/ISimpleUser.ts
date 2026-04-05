@@ -21,11 +21,11 @@ export interface ISimpleUser {
   /** 推文数 */
   statuses_count?: number;
   /** 个人简介 */
-  description?: string;
+  description?: string | null;
   /** 位置 */
-  location?: string;
+  location?: string | null;
   /** 个人网站 */
-  url?: string;
+  url?: string | null;
   /** 用户标签类型 */
   userLabelType?: UserLabelType;
   /** 验证类型 */

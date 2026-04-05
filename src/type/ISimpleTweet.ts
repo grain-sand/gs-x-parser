@@ -31,9 +31,9 @@ export interface ISimpleTweet {
   /** 是否为转发 */
   is_retweet?: boolean;
   /** 被转发的推文ID */
-  retweeted_status_id?: string;
+  retweeted_status_id?: string | null;
   /** 被引用的推文ID */
-  quoted_status_id?: string;
+  quoted_status_id?: string | null;
   /** 图片媒体数组 */
   photos?: ISimplePhoto[];
   /** 视频媒体数组 */
