@@ -1,10 +1,8 @@
 # GS X Parser
 
-[English](README.md)
-
-## 项目简介
-
 GS X Parser 是一个用于解析 Twitter/X API 响应的 TypeScript 库，提供了完整的类型定义和解析功能，支持将复杂的 API 响应转换为简单易用的格式。
+
+[English](README.md)
 
 ## 功能特性
 

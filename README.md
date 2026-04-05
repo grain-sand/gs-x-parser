@@ -1,10 +1,7 @@
 # GS X Parser
+GS X Parser is a TypeScript library for parsing Twitter/X API responses, providing complete type definitions and parsing functionality, supporting the conversion of complex API responses into simple and easy-to-use formats.
 
 [中文](README.zh.md)
-
-## Project Introduction
-
-GS X Parser is a TypeScript library for parsing Twitter/X API responses, providing complete type definitions and parsing functionality, supporting the conversion of complex API responses into simple and easy-to-use formats.
 
 ## Features
 
