@@ -8,3 +8,7 @@ export * from './ICommunity';
 export * from './INotification';
 export * from './IMediaEntity';
 export * from './ITypes';
+export * from './ISimpleUser';
+export * from './ISimpleTweet';
+export * from './ISimpleMedia';
+export * from './ISimpleResult';
