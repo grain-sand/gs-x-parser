@@ -2,6 +2,7 @@
  * 用户类型定义
  */
 import {IUserBase} from './index';
+import { UserDisplayType, UserLabelType, VerifiedType, UrlType } from './ITypes';
 
 /**
  * 用户接口
@@ -27,6 +28,13 @@ export interface IUser {
   professional?: IUserProfessional;
   /** 是否有超级关注资格 */
   super_follow_eligible?: boolean;
+  /** 小费设置 */
+  tipjar_settings?: ITipjarSettings;
+}
+
+export interface ITipjarSettings {
+  /** 是否启用 */
+  is_enabled?: boolean;
 }
 
 /**
@@ -53,6 +61,8 @@ export interface IUserLegacy extends IUserBase {
   profile_interstitial_type?: string;
   /** 个人网站 */
   url?: string;
+  /** 验证类型 */
+  verified_type?: VerifiedType;
 }
 
 /**
@@ -100,9 +110,9 @@ export interface ILabel {
   /** 描述 */
   description?: string;
   /** 用户标签类型 */
-  userLabelType?: string;
+  userLabelType?: UserLabelType;
   /** 用户标签显示类型 */
-  userLabelDisplayType?: string;
+  userLabelDisplayType?: UserDisplayType;
 }
 
 /**
@@ -112,7 +122,7 @@ export interface IUrl {
   /** URL */
   url?: string;
   /** URL类型 */
-  urlType?: string;
+  urlType?: UrlType;
 }
 
 /**

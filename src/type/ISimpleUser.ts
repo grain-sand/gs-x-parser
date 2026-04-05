@@ -1,9 +1,9 @@
 /**
  * 简单用户类型，仅保留必须的标识字段、核心数据字段、用于显示的字段
  */
+import { UserLabelType, VerifiedType } from './ITypes';
+
 export interface ISimpleUser {
-  /** 用户ID */
-  id: string;
   /** 用户REST ID */
   rest_id: string;
   /** 用户名 */
@@ -26,4 +26,8 @@ export interface ISimpleUser {
   location?: string;
   /** 个人网站 */
   url?: string;
+  /** 用户标签类型 */
+  userLabelType?: UserLabelType;
+  /** 验证类型 */
+  verified_type?: VerifiedType;
 }

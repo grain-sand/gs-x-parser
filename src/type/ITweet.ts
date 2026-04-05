@@ -2,7 +2,7 @@
  * 推文类型定义
  */
 import {IMediaEntity, ITweetBase, IUser} from './index';
-import { EligibilityType } from './ITypes';
+import { EligibilityType, LegacyCardBindingKeyType, LegacyCardBindingValueType, ViewState } from './ITypes';
 
 /**
  * 推文接口
@@ -113,7 +113,7 @@ export interface ITweetViews {
   /** 计数 */
   count?: string;
   /** 状态 */
-  state?: string;
+  state?: ViewState;
 }
 
 /**
@@ -217,7 +217,7 @@ export interface ICardLegacy {
  */
 export interface IBindingValue {
   /** 键 */
-  key?: string;
+  key?: LegacyCardBindingKeyType;
   /** 值 */
   value?: IBindingValueContent;
 }
@@ -231,13 +231,15 @@ export interface IBindingValueContent {
   /** 字符串值 */
   string_value?: string;
   /** 类型 */
-  type?: string;
+  type?: LegacyCardBindingValueType;
   /** 图像颜色值 */
   image_color_value?: IImageColorValue;
   /** 记录键 */
   scribe_key?: string;
   /** 用户值 */
   user_value?: IUserValue;
+  /** 应用价格金额 */
+  app_price_amount?: string;
 }
 
 /**

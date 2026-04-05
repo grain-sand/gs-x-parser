@@ -1,12 +1,13 @@
 /**
  * 简单媒体类型，仅保留各子类型、各品质的URL与尺寸、说明
  */
+import { MediaType } from './ITypes';
 
 export interface ISimpleMedia {
-  /** 媒体ID */
-  id: string;
+  /** 媒体键 */
+  media_key?: string;
   /** 媒体类型 */
-  type: 'photo' | 'video' | 'animated_gif';
+  type: MediaType;
   /** 媒体URL */
   media_url_https: string;
   /** 显示URL */
@@ -46,7 +47,7 @@ export interface ISimplePhoto extends ISimpleMedia {
  */
 export interface ISimpleVideo extends ISimpleMedia {
   /** 媒体类型 */
-  type: 'video' | 'animated_gif';
+  type: Exclude<MediaType, 'photo'>;
   /** 视频信息 */
   video_info?: {
     /** 宽高比 */

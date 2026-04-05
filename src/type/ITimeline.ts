@@ -1,5 +1,5 @@
 import { ITweet } from './index';
-import { TimelineEntryType } from './ITypes';
+import { TimelineEntryType, TweetDisplayType, DisplayType, InjectionType } from './ITypes';
 
 export interface ITimeline {
   instructions?: ITimelineInstruction[];
@@ -21,16 +21,26 @@ export interface ITimelineContent {
   __typename?: string;
   itemContent?: ITimelineItemContent;
   items?: ITimelineModuleItem[];
-  displayType?: string;
+  displayType?: DisplayType;
   clientEventInfo?: IClientEventInfo;
   feedbackInfo?: IFeedbackInfo;
+  metadata?: IMetadata;
+}
+
+export interface IMetadata {
+  conversationMetadata?: IConversationMetadata;
+}
+
+export interface IConversationMetadata {
+  allTweetIds?: string[];
+  enableDeduplication?: boolean;
 }
 
 export interface ITimelineItemContent {
   itemType?: string;
   __typename?: string;
   tweet_results?: ITweetResults;
-  tweetDisplayType?: string;
+  tweetDisplayType?: TweetDisplayType;
   hasModeratedReplies?: boolean;
   clientEventInfo?: IClientEventInfo;
   content?: ITimelineMessageContent;
@@ -100,4 +110,5 @@ export interface IConversationDetails {
 
 export interface ITimelinesDetails {
   controllerData?: string;
+  injectionType?: InjectionType;
 }

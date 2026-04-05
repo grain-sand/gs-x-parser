@@ -4,8 +4,6 @@
 import { ISimplePhoto, ISimpleVideo, ISimpleUrl } from './ISimpleMedia';
 
 export interface ISimpleTweet {
-  /** 推文ID */
-  id: string;
   /** 推文REST ID */
   rest_id: string;
   /** 推文完整文本 */
@@ -26,6 +24,8 @@ export interface ISimpleTweet {
   quote_count?: number;
   /** 语言 */
   lang?: string;
+  /** 会话ID */
+  conversation_id?: string;
   /** 是否敏感内容 */
   possibly_sensitive?: boolean;
   /** 是否为转发 */
