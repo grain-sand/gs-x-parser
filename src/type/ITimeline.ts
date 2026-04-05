@@ -1,4 +1,5 @@
 import { ITweet } from './index';
+import { TimelineEntryType } from './ITypes';
 
 export interface ITimeline {
   instructions?: ITimelineInstruction[];
@@ -16,7 +17,7 @@ export interface ITimelineEntry {
 }
 
 export interface ITimelineContent {
-  entryType?: string;
+  entryType?: TimelineEntryType;
   __typename?: string;
   itemContent?: ITimelineItemContent;
   items?: ITimelineModuleItem[];
