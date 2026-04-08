@@ -307,7 +307,7 @@ export class XParser {
       const entryId = (originalTweet as any)?.entryId || '';
 
       // 判断推文类型
-      if (restId.startsWith(IdPrefixes.PromotedTweet)) {
+      if (restId.startsWith(IdPrefixes.PromotedTweet) || entryId.startsWith(IdPrefixes.PromotedTweet)) {
         // 推广推文视为广告
         ads.push(tweet);
         if (options.includeAds) {
