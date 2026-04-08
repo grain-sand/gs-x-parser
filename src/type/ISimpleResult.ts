@@ -1,19 +1,14 @@
 /**
  * 简单Result类型，包含所有简单User、Tweet、各种媒体、游标标识等
  */
-import { ISimpleUser } from './ISimpleUser';
 import { ISimpleTweet } from './ISimpleTweet';
-import { IUser } from './IUser';
 import { ITweet } from './ITweet';
 
 /**
- * Result的基类，支持泛型
- * @template UserType - 用户类型，必须是ISimpleUser或IUser
+ * Result的基类
  * @template TweetType - 推文类型，必须是ISimpleTweet或ITweet
  */
-export interface IResultBase<UserType extends ISimpleUser | IUser, TweetType extends ISimpleTweet | ITweet> {
-  /** 用户数组 */
-  users?: UserType[];
+export interface IResultBase<TweetType extends ISimpleTweet | ITweet> {
   /** 推文数组 */
   tweets?: TweetType[];
   /** 包含图片的推文数组 */
@@ -45,11 +40,11 @@ export interface IResultBase<UserType extends ISimpleUser | IUser, TweetType ext
 /**
  * 基于简单类型的Result
  */
-export interface ISimpleResult extends IResultBase<ISimpleUser, ISimpleTweet> {
+export interface ISimpleResult extends IResultBase<ISimpleTweet> {
 }
 
 /**
  * 基于原始类型的Result
  */
-export interface IOriginalResult extends IResultBase<IUser, ITweet> {
+export interface IOriginalResult extends IResultBase<ITweet> {
 }

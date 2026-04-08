@@ -128,7 +128,8 @@ describe('XParser', () => {
 			expect(simpleTweet.rest_id).toBe('67890');
 			expect(simpleTweet.full_text).toBe('Test tweet');
 			expect(simpleTweet.created_at).toBe('2024-01-01T00:00:00Z');
-			expect(simpleTweet.user_id).toBe('12345');
+			expect(simpleTweet.user).toBeDefined();
+			expect(simpleTweet.user.rest_id).toBe('12345');
 			expect(simpleTweet.retweet_count).toBe(10);
 			expect(simpleTweet.favorite_count).toBe(20);
 			expect(simpleTweet.reply_count).toBe(5);
@@ -165,33 +166,22 @@ describe('XParser', () => {
 				if (result.previous_cursor) expect(typeof result.previous_cursor).toBe('string');
 				if (result.previous_cursor_str) expect(typeof result.previous_cursor_str).toBe('string');
 
-				// 验证用户数组
-				if (result.users) {
-					expect(Array.isArray(result.users)).toBe(true);
-					result.users.forEach(user => {
-						expect(user.rest_id).toBeDefined();
-						expect(typeof user.rest_id).toBe('string');
-						expect(user.name).toBeDefined();
-						expect(typeof user.name).toBe('string');
-						expect(user.screen_name).toBeDefined();
-						expect(typeof user.screen_name).toBe('string');
-						expect(user.profile_image_url_https).toBeDefined();
-						expect(typeof user.profile_image_url_https).toBe('string');
-					});
-				}
-
 				// 验证推文数组
 				if (result.tweets) {
 					expect(Array.isArray(result.tweets)).toBe(true);
 					result.tweets.forEach(tweet => {
+						expect(tweet).toBeDefined();
+						expect(typeof tweet).toBe('object');
 						expect(tweet.rest_id).toBeDefined();
 						expect(typeof tweet.rest_id).toBe('string');
 						expect(tweet.full_text).toBeDefined();
 						expect(typeof tweet.full_text).toBe('string');
 						expect(tweet.created_at).toBeDefined();
 						expect(typeof tweet.created_at).toBe('string');
-						expect(tweet.user_id).toBeDefined();
-						expect(typeof tweet.user_id).toBe('string');
+						expect(tweet.user).toBeDefined();
+						expect(typeof tweet.user).toBe('object');
+						expect(tweet.user.rest_id).toBeDefined();
+						expect(typeof tweet.user.rest_id).toBe('string');
 					});
 				}
 
@@ -221,16 +211,6 @@ describe('XParser', () => {
 				if (result.next_cursor_str) expect(typeof result.next_cursor_str).toBe('string');
 				if (result.previous_cursor) expect(typeof result.previous_cursor).toBe('string');
 				if (result.previous_cursor_str) expect(typeof result.previous_cursor_str).toBe('string');
-
-				// 验证用户数组
-				if (result.users) {
-					expect(Array.isArray(result.users)).toBe(true);
-					result.users.forEach(user => {
-						expect(user.__typename).toBe('User');
-						expect(user.rest_id).toBeDefined();
-						expect(typeof user.rest_id).toBe('string');
-					});
-				}
 
 				// 验证推文数组
 				if (result.tweets) {

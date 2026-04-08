@@ -2,6 +2,7 @@
  * 简单推文类型，仅保留必须的标识字段、核心数据字段、用于显示的字段
  */
 import { ISimplePhoto, ISimpleVideo, ISimpleUrl } from './ISimpleMedia';
+import { ISimpleUser } from './ISimpleUser';
 
 export interface ISimpleTweet {
   /** 推文REST ID */
@@ -10,10 +11,8 @@ export interface ISimpleTweet {
   full_text: string;
   /** 创建时间 */
   created_at: string;
-  /** 用户ID */
-  user_id: string;
-  /** 用户屏幕名称 */
-  user_screen_name: string;
+  /** 用户信息 */
+  user: ISimpleUser;
   /** 转发数 */
   retweet_count?: number;
   /** 点赞数 */

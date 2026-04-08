@@ -23,16 +23,22 @@ export class XParser {
   static parseSimple(data: any): ISimpleResult {
     const result: ISimpleResult = {};
 
-    // 提取用户
+    // 提取用户和推文
     const users = this.#extractUsers(data);
-    if (users.length > 0) {
-      result.users = users.map(user => this.convertToSimpleUser(user));
-    }
+    const tweets = this.#extractTweets(data);
+
+    // 构建用户映射
+    const userMap = new Map<string, IUser>();
+    users.forEach(user => {
+      userMap.set(user.rest_id, user);
+    });
 
     // 提取推文
-    const tweets = this.#extractTweets(data);
     if (tweets.length > 0) {
-      result.tweets = tweets.map(tweet => this.convertToSimpleTweet(tweet));
+      result.tweets = tweets.map(tweet => {
+        const user = userMap.get(tweet.legacy?.user_id_str || '');
+        return this.convertToSimpleTweet(tweet, user);
+      });
 
       // 分类推文
       result.photos = result.tweets.filter(tweet => tweet.photos && tweet.photos.length > 0);
@@ -53,12 +59,6 @@ export class XParser {
    */
   static parseOriginal(data: any): IOriginalResult {
     const result: IOriginalResult = {};
-
-    // 提取用户
-    const users = this.#extractUsers(data);
-    if (users.length > 0) {
-      result.users = users;
-    }
 
     // 提取推文
     const tweets = this.#extractTweets(data);
@@ -117,16 +117,21 @@ export class XParser {
   /**
    * 将ITweet转换为ISimpleTweet
    * @param tweet ITweet对象
+   * @param user IUser对象（可选）
    * @returns ISimpleTweet
    */
-  static convertToSimpleTweet(tweet: ITweet): ISimpleTweet {
+  static convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet {
     const legacy = tweet.legacy;
     const simpleTweet: ISimpleTweet = {
       rest_id: tweet.rest_id,
       full_text: legacy?.full_text || '',
       created_at: legacy?.created_at || '',
-      user_id: legacy?.user_id_str || '',
-      user_screen_name: '', // 需要从用户信息中获取
+      user: user ? this.convertToSimpleUser(user) : {
+        rest_id: legacy?.user_id_str || '',
+        name: '',
+        screen_name: '',
+        profile_image_url_https: ''
+      },
       retweet_count: legacy?.retweet_count,
       favorite_count: legacy?.favorite_count,
       reply_count: legacy?.reply_count,
