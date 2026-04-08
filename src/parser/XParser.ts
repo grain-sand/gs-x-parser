@@ -2,6 +2,7 @@
  * XParser 静态类，用于解析Twitter API响应
  */
 import {
+	IdPrefixes,
 	IMediaEntity,
 	IOriginalResult,
 	ISimplePhoto,
@@ -14,13 +15,32 @@ import {
 	IUser
 } from '../type';
 
+/**
+ * XParser 解析选项接口
+ */
+export interface IXParserOptions {
+	/**
+	 * 是否包含广告推文（包括推广推文）
+	 */
+	includeAds?: boolean;
+	/**
+	 * 是否包含探索更多内容
+	 */
+	includeExploreMore?: boolean;
+	/**
+	 * 是否包含各类推荐推文
+	 */
+	includeRecommendations?: boolean;
+}
+
 export class XParser {
   /**
    * 解析任意对象为ISimpleResult
    * @param data 任意对象
+   * @param options 解析选项
    * @returns ISimpleResult
    */
-  static parseSimple(data: any): ISimpleResult {
+  static parseSimple(data: any, options: IXParserOptions = {}): ISimpleResult {
     const result: ISimpleResult = {};
 
     // 提取用户和推文
@@ -35,12 +55,21 @@ export class XParser {
 
     // 提取推文
     if (tweets.length > 0) {
-      result.tweets = tweets.map(tweet => {
+      // 转换所有推文
+      const allTweets = tweets.map(tweet => {
         const user = userMap.get(tweet.legacy?.user_id_str || '');
         return this.convertToSimpleTweet(tweet, user);
       });
 
       // 分类推文
+      const { tweets: filteredTweets, ads, exploreMore, recommendations } = this.#filterTweets(allTweets, tweets, options);
+
+      result.tweets = filteredTweets;
+      result.ads = ads;
+      result.exploreMore = exploreMore;
+      result.recommendations = recommendations;
+
+      // 分类媒体推文
       result.photos = result.tweets.filter(tweet => tweet.photos && tweet.photos.length > 0);
       result.videos = result.tweets.filter(tweet => tweet.videos && tweet.videos.length > 0);
       result.urls = result.tweets.filter(tweet => tweet.urls && tweet.urls.length > 0);
@@ -55,17 +84,24 @@ export class XParser {
   /**
    * 解析任意对象为IOriginalResult
    * @param data 任意对象
+   * @param options 解析选项
    * @returns IOriginalResult
    */
-  static parseOriginal(data: any): IOriginalResult {
+  static parseOriginal(data: any, options: IXParserOptions = {}): IOriginalResult {
     const result: IOriginalResult = {};
 
     // 提取推文
     const tweets = this.#extractTweets(data);
     if (tweets.length > 0) {
-      result.tweets = tweets;
-
       // 分类推文
+      const { tweets: filteredTweets, ads, exploreMore, recommendations } = this.#filterTweets(tweets, tweets, options);
+
+      result.tweets = filteredTweets;
+      result.ads = ads;
+      result.exploreMore = exploreMore;
+      result.recommendations = recommendations;
+
+      // 分类媒体推文
       result.photos = result.tweets.filter(tweet => {
         const legacy = tweet.legacy;
         return legacy && legacy.extended_entities && legacy.extended_entities.media &&
@@ -248,6 +284,57 @@ export class XParser {
   }
 
   /**
+   * 过滤推文
+   * @param convertedTweets 转换后的推文数组
+   * @param originalTweets 原始推文数组
+   * @param options 解析选项
+   * @returns 过滤后的推文及分类
+   */
+  static #filterTweets<T extends ISimpleTweet | ITweet>(convertedTweets: T[], originalTweets: ITweet[], options: IXParserOptions): {
+    tweets: T[];
+    ads: T[];
+    exploreMore: T[];
+    recommendations: T[];
+  } {
+    const tweets: T[] = [];
+    const ads: T[] = [];
+    const exploreMore: T[] = [];
+    const recommendations: T[] = [];
+
+    convertedTweets.forEach((tweet, index) => {
+      const originalTweet = originalTweets[index];
+      const restId = originalTweet?.rest_id || '';
+      const entryId = (originalTweet as any)?.entryId || '';
+
+      // 判断推文类型
+      if (restId.startsWith(IdPrefixes.PromotedTweet)) {
+        // 推广推文视为广告
+        ads.push(tweet);
+        if (options.includeAds) {
+          tweets.push(tweet);
+        }
+      } else if (restId.includes('explore') || entryId.includes('tweetdetailrelatedtweets')) {
+        // 探索更多内容，包括相关推文
+        exploreMore.push(tweet);
+        if (options.includeExploreMore) {
+          tweets.push(tweet);
+        }
+      } else if (restId.includes('recommendation') || restId.includes('suggestion')) {
+        // 推荐推文
+        recommendations.push(tweet);
+        if (options.includeRecommendations) {
+          tweets.push(tweet);
+        }
+      } else {
+        // 正常推文
+        tweets.push(tweet);
+      }
+    });
+
+    return { tweets, ads, exploreMore, recommendations };
+  }
+
+  /**
    * 从数据中提取用户
    * @param data 任意对象
    * @returns IUser数组
@@ -285,19 +372,34 @@ export class XParser {
     const tweets: ITweet[] = [];
 
     // 递归搜索推文
-    const searchTweets = (obj: any) => {
+    const searchTweets = (obj: any, entryId?: string, clientEventInfo?: any) => {
       if (obj && typeof obj === 'object') {
+        // 保存entryId和clientEventInfo
+        if (obj.entryId) {
+          entryId = obj.entryId;
+        }
+        if (obj.clientEventInfo) {
+          clientEventInfo = obj.clientEventInfo;
+        }
+
         if (obj.__typename === 'Tweet' && obj.rest_id) {
+          // 保存推文的上下文信息
+          if (entryId) {
+            (obj as any).entryId = entryId;
+          }
+          if (clientEventInfo) {
+            (obj as any).clientEventInfo = clientEventInfo;
+          }
           tweets.push(obj);
         }
 
         for (const key in obj) {
           if (obj.hasOwnProperty(key)) {
-            searchTweets(obj[key]);
+            searchTweets(obj[key], entryId, clientEventInfo);
           }
         }
       } else if (Array.isArray(obj)) {
-        obj.forEach(item => searchTweets(item));
+        obj.forEach(item => searchTweets(item, entryId, clientEventInfo));
       }
     };
 

@@ -17,6 +17,12 @@ export interface IResultBase<TweetType extends ISimpleTweet | ITweet> {
   videos?: TweetType[];
   /** 包含URL的推文数组 */
   urls?: TweetType[];
+  /** 广告推文数组 */
+  ads?: TweetType[];
+  /** 探索更多内容数组 */
+  exploreMore?: TweetType[];
+  /** 推荐推文数组 */
+  recommendations?: TweetType[];
   /** 下一页游标 */
   next_cursor?: string;
   /** 下一页游标字符串 */
