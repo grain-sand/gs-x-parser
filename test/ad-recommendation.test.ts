@@ -8,11 +8,11 @@ import {XParser} from '../src';
 import * as fs from 'fs';
 import * as path from 'path';
 
-// 读取HomeTimeline.json文件
-const homeTimelinePath = path.join(__dirname, '../tmp', 'home', 'HomeTimeline.json');
+// 读取HomeTimeline-ShowCover.json文件
+const homeTimelinePath = path.join(__dirname, '../tmp', 'home', 'HomeTimeline-ShowCover.json');
 
 if (!fs.existsSync(homeTimelinePath)) {
-  console.warn('HomeTimeline.json not found, skipping ad and recommendation tests');
+  console.warn('HomeTimeline-ShowCover.json not found, skipping ad and recommendation tests');
 } else {
   describe('XParser - Ads and Recommendations', () => {
     const homeTimelineData = JSON.parse(fs.readFileSync(homeTimelinePath, 'utf8'));
@@ -58,12 +58,13 @@ if (!fs.existsSync(homeTimelinePath)) {
 
     // 测试推荐识别
     describe('Recommendation Detection', () => {
-      it('should detect recommendations in HomeTimeline.json', () => {
+      it('should detect recommendations in HomeTimeline-ShowCover.json', () => {
         const result = XParser.parseSimple(homeTimelineData);
         
         // 验证推荐字段
         expect(result.recommendations).toBeDefined();
         expect(Array.isArray(result.recommendations)).toBe(true);
+        expect(result.recommendations?.length).toBeGreaterThan(0);
         
         // 测试 includeRecommendations 选项
         const resultWithRecommendations = XParser.parseSimple(homeTimelineData, { includeRecommendations: true });
@@ -71,9 +72,7 @@ if (!fs.existsSync(homeTimelinePath)) {
         const recommendationCount = result.recommendations?.length || 0;
         
         // 验证包含推荐后的推文数量
-        if (recommendationCount > 0) {
-          expect(resultWithRecommendations.tweets?.length).toBe(originalTweetCount + recommendationCount);
-        }
+        expect(resultWithRecommendations.tweets?.length).toBe(originalTweetCount + recommendationCount);
       });
 
       it('should detect recommendations in original format', () => {
@@ -82,6 +81,7 @@ if (!fs.existsSync(homeTimelinePath)) {
         // 验证推荐字段
         expect(result.recommendations).toBeDefined();
         expect(Array.isArray(result.recommendations)).toBe(true);
+        expect(result.recommendations?.length).toBeGreaterThan(0);
         
         // 测试 includeRecommendations 选项
         const resultWithRecommendations = XParser.parseOriginal(homeTimelineData, { includeRecommendations: true });
@@ -89,9 +89,7 @@ if (!fs.existsSync(homeTimelinePath)) {
         const recommendationCount = result.recommendations?.length || 0;
         
         // 验证包含推荐后的推文数量
-        if (recommendationCount > 0) {
-          expect(resultWithRecommendations.tweets?.length).toBe(originalTweetCount + recommendationCount);
-        }
+        expect(resultWithRecommendations.tweets?.length).toBe(originalTweetCount + recommendationCount);
       });
     });
 

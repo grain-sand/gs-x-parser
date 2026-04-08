@@ -319,7 +319,7 @@ export class XParser {
         if (options.includeExploreMore) {
           tweets.push(tweet);
         }
-      } else if (restId.includes('recommendation') || restId.includes('suggestion')) {
+      } else if (restId.includes('recommendation') || restId.includes('suggestion') || entryId.includes('pinned-tweets')) {
         // 推荐推文
         recommendations.push(tweet);
         if (options.includeRecommendations) {
@@ -426,10 +426,12 @@ export class XParser {
 
         // 检查其他可能的游标字段
         if (obj.entryId && (obj.entryId.startsWith('cursor-top-') || obj.entryId.startsWith('cursor-bottom-'))) {
-          if (obj.entryId.startsWith('cursor-top-')) {
-            result.cursor_top = obj.entryId.replace('cursor-top-', '');
-          } else {
-            result.cursor_bottom = obj.entryId.replace('cursor-bottom-', '');
+          if (obj.content && obj.content.value) {
+            if (obj.entryId.startsWith('cursor-top-')) {
+              result.cursor_top = obj.content.value;
+            } else {
+              result.cursor_bottom = obj.content.value;
+            }
           }
         }
 
