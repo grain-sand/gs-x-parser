@@ -7,14 +7,16 @@ import { ITweet } from '../../type';
  */
 export function extractTweets(data: any): ITweet[] {
   const tweets: ITweet[] = [];
+  const tweetIds = new Set<string>();
 
   // 处理 globalObjects.tweets 结构
   if (data?.globalObjects?.tweets) {
     Object.values(data.globalObjects.tweets).forEach((tweet: any) => {
-      if (tweet && tweet.id_str) {
+      if (tweet && tweet.id_str && !tweetIds.has(tweet.id_str)) {
         // 添加 __typename 字段以保持一致性
         tweet.__typename = 'Tweet';
         tweet.rest_id = tweet.id_str;
+        tweetIds.add(tweet.id_str);
         tweets.push(tweet);
       }
     });
@@ -31,7 +33,7 @@ export function extractTweets(data: any): ITweet[] {
         clientEventInfo = obj.clientEventInfo;
       }
 
-      if (obj.__typename === 'Tweet' && obj.rest_id) {
+      if (obj.__typename === 'Tweet' && obj.rest_id && !tweetIds.has(obj.rest_id)) {
         // 保存推文的上下文信息
         if (entryId) {
           (obj as any).entryId = entryId;
@@ -39,6 +41,7 @@ export function extractTweets(data: any): ITweet[] {
         if (clientEventInfo) {
           (obj as any).clientEventInfo = clientEventInfo;
         }
+        tweetIds.add(obj.rest_id);
         tweets.push(obj);
       }
 

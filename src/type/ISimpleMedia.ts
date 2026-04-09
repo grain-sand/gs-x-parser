@@ -48,15 +48,14 @@ export interface ISimplePhoto extends ISimpleMedia {
 export interface ISimpleVideo extends ISimpleMedia {
   /** 媒体类型 */
   type: Exclude<MediaType, 'photo'>;
-  /** 视频信息 */
-  video_info?: {
-    /** 宽高比 */
-    aspect_ratio?: number[];
-    /** 时长（毫秒） */
-    duration_millis?: number;
-    /** 视频变体 */
-    variants?: ISimpleVideoVariant[];
-  };
+  /** 宽高比 */
+  aspect_ratio?: number[];
+  /** 时长（毫秒） */
+  duration_millis?: number;
+  /** MP4 视频数组 */
+  mp4?: ISimpleMP4Video[];
+  /** HLS 视频 URL */
+  hls?: string;
 }
 
 /**
@@ -72,15 +71,15 @@ export interface ISimpleMediaSize {
 }
 
 /**
- * 视频变体
+ * MP4 视频
  */
-export interface ISimpleVideoVariant {
+export interface ISimpleMP4Video {
   /** 比特率 */
   bitrate?: number;
-  /** 内容类型 */
-  content_type: string;
   /** 视频URL */
   url: string;
+  /** 质量 */
+  quality?: string;
 }
 
 /**
