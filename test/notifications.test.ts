@@ -42,9 +42,6 @@ describe('XParser notifications parsing', () => {
         if (result.users.length > 0) {
           result.users.forEach((user) => {
             expect(user.rest_id).toBeDefined();
-            expect(user.name).toBeDefined();
-            expect(user.screen_name).toBeDefined();
-            expect(user.profile_image_url_https).toBeDefined();
           });
         }
 

@@ -33,7 +33,10 @@ export function extractTweets(data: any): ITweet[] {
         clientEventInfo = obj.clientEventInfo;
       }
 
-      if (obj.__typename === 'Tweet' && obj.rest_id && !tweetIds.has(obj.rest_id)) {
+      // 处理直接的推文对象
+      if ((obj.__typename === 'Tweet' || (!obj.__typename && obj.rest_id && obj.legacy?.full_text)) && obj.rest_id && !tweetIds.has(obj.rest_id)) {
+        // 添加 __typename 字段以保持一致性
+        obj.__typename = 'Tweet';
         // 保存推文的上下文信息
         if (entryId) {
           (obj as any).entryId = entryId;
@@ -43,6 +46,22 @@ export function extractTweets(data: any): ITweet[] {
         }
         tweetIds.add(obj.rest_id);
         tweets.push(obj);
+      }
+
+      // 处理 TweetWithVisibilityResults 结构
+      if (obj.__typename === 'TweetWithVisibilityResults' && obj.tweet && obj.tweet.rest_id && !tweetIds.has(obj.tweet.rest_id)) {
+        const tweet = obj.tweet;
+        // 添加 __typename 字段以保持一致性
+        tweet.__typename = 'Tweet';
+        // 保存推文的上下文信息
+        if (entryId) {
+          (tweet as any).entryId = entryId;
+        }
+        if (clientEventInfo) {
+          (tweet as any).clientEventInfo = clientEventInfo;
+        }
+        tweetIds.add(tweet.rest_id);
+        tweets.push(tweet);
       }
 
       for (const key in obj) {

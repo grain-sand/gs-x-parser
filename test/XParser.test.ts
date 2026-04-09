@@ -62,11 +62,11 @@ describe('XParser', () => {
 			expect(simpleUser.name).toBe('Test User');
 			expect(simpleUser.screen_name).toBe('testuser');
 			expect(simpleUser.profile_image_url_https).toBe('https://example.com/avatar.jpg');
+			expect(simpleUser.description).toBe('Test description');
 			expect(simpleUser.verified).toBe(true);
 			expect(simpleUser.followers_count).toBe(1000);
 			expect(simpleUser.friends_count).toBe(500);
 			expect(simpleUser.statuses_count).toBe(100);
-			expect(simpleUser.description).toBe('Test description');
 			expect(simpleUser.location).toBe('Test Location');
 			expect(simpleUser.url).toBe('https://example.com');
 			expect(simpleUser.userLabelType).toBe('BusinessLabel');
