@@ -1,14 +1,17 @@
 /**
  * 简单Result类型，包含所有简单User、Tweet、各种媒体、游标标识等
  */
-import { ISimpleTweet } from './ISimpleTweet';
-import { ITweet } from './ITweet';
+import {ISimpleTweet} from './ISimpleTweet';
+import {ITweet} from './ITweet';
+import {IUser} from './IUser';
+import {ISimpleUser} from './ISimpleUser';
 
 /**
  * Result的基类
  * @template TweetType - 推文类型，必须是ISimpleTweet或ITweet
+ * @template UserType - 用户类型，必须是IUser或ISimpleUser
  */
-export interface IResultBase<TweetType extends ISimpleTweet | ITweet> {
+export interface IResultBase<TweetType extends ISimpleTweet | ITweet, UserType extends IUser | ISimpleUser> {
   /** 推文数组 */
   tweets?: TweetType[];
   /** 包含图片的推文数组 */
@@ -23,6 +26,8 @@ export interface IResultBase<TweetType extends ISimpleTweet | ITweet> {
   exploreMore?: TweetType[];
   /** 推荐推文数组 */
   recommendations?: TweetType[];
+  /** 用户数组 */
+  users?: UserType[];
   /** 下一页游标 */
   next_cursor?: string;
   /** 下一页游标字符串 */
@@ -46,11 +51,11 @@ export interface IResultBase<TweetType extends ISimpleTweet | ITweet> {
 /**
  * 基于简单类型的Result
  */
-export interface ISimpleResult extends IResultBase<ISimpleTweet> {
+export interface ISimpleResult extends IResultBase<ISimpleTweet, ISimpleUser> {
 }
 
 /**
  * 基于原始类型的Result
  */
-export interface IOriginalResult extends IResultBase<ITweet> {
+export interface IOriginalResult extends IResultBase<ITweet, IUser> {
 }
