@@ -14,6 +14,8 @@ export interface ISimpleUser {
   profile_image_url_https: string;
   /** 是否验证 */
   verified?: boolean;
+  /** 是否蓝V验证 */
+  blue_verified?: boolean;
   /** 粉丝数 */
   followers_count?: number;
   /** 关注数 */
