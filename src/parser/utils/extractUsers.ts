@@ -8,6 +8,18 @@ import { IUser } from '../../type';
 export function extractUsers(data: any): IUser[] {
   const users: IUser[] = [];
 
+  // 处理 globalObjects.users 结构
+  if (data?.globalObjects?.users) {
+    Object.values(data.globalObjects.users).forEach((user: any) => {
+      if (user && user.id_str) {
+        // 添加 __typename 字段以保持一致性
+        user.__typename = 'User';
+        user.rest_id = user.id_str;
+        users.push(user);
+      }
+    });
+  }
+
   // 递归搜索用户
   const searchUsers = (obj: any) => {
     if (obj && typeof obj === 'object') {

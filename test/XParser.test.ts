@@ -5,6 +5,8 @@
  */
 import {describe, expect, it} from 'vitest';
 import {XParser} from '../src';
+import {convertToSimpleUser} from '../src/parser/utils/convertToSimpleUser';
+import {convertToSimpleTweet} from '../src/parser/utils/convertToSimpleTweet';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -54,7 +56,7 @@ describe('XParser', () => {
 				}
 			};
 
-			const simpleUser = XParser.convertToSimpleUser(mockUser);
+			const simpleUser = convertToSimpleUser(mockUser);
 
 			expect(simpleUser.rest_id).toBe('12345');
 			expect(simpleUser.name).toBe('Test User');
@@ -123,7 +125,7 @@ describe('XParser', () => {
 				}
 			};
 
-			const simpleTweet = XParser.convertToSimpleTweet(mockTweet);
+			const simpleTweet = convertToSimpleTweet(mockTweet);
 
 			expect(simpleTweet.rest_id).toBe('67890');
 			expect(simpleTweet.full_text).toBe('Test tweet');

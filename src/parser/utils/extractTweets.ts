@@ -8,6 +8,18 @@ import { ITweet } from '../../type';
 export function extractTweets(data: any): ITweet[] {
   const tweets: ITweet[] = [];
 
+  // 处理 globalObjects.tweets 结构
+  if (data?.globalObjects?.tweets) {
+    Object.values(data.globalObjects.tweets).forEach((tweet: any) => {
+      if (tweet && tweet.id_str) {
+        // 添加 __typename 字段以保持一致性
+        tweet.__typename = 'Tweet';
+        tweet.rest_id = tweet.id_str;
+        tweets.push(tweet);
+      }
+    });
+  }
+
   // 递归搜索推文
   const searchTweets = (obj: any, entryId?: string, clientEventInfo?: any) => {
     if (obj && typeof obj === 'object') {

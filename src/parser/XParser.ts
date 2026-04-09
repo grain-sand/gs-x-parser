@@ -16,7 +16,16 @@ export class XParser {
    * @returns ISimpleResult
    */
   static parseSimple(data: any, options: IXParserOptions = {}): ISimpleResult {
-    const result: ISimpleResult = {};
+    const result: ISimpleResult = {
+      users: [],
+      tweets: [],
+      ads: [],
+      exploreMore: [],
+      recommendations: [],
+      photos: [],
+      videos: [],
+      urls: []
+    };
 
     // 提取用户和推文
     const users = extractUsers(data);
@@ -35,7 +44,8 @@ export class XParser {
     if (tweets.length > 0) {
       // 转换所有推文
       const allTweets = tweets.map(tweet => {
-        const user = userMap.get(tweet.legacy?.user_id_str || '');
+        const userId = tweet.legacy?.user_id_str || tweet.user_id_str;
+        const user = userMap.get(userId || '');
         return convertToSimpleTweet(tweet, user);
       });
 
@@ -66,7 +76,16 @@ export class XParser {
    * @returns IOriginalResult
    */
   static parseOriginal(data: any, options: IXParserOptions = {}): IOriginalResult {
-    const result: IOriginalResult = {};
+    const result: IOriginalResult = {
+      users: [],
+      tweets: [],
+      ads: [],
+      exploreMore: [],
+      recommendations: [],
+      photos: [],
+      videos: [],
+      urls: []
+    };
 
     // 提取用户和推文
     const users = extractUsers(data);

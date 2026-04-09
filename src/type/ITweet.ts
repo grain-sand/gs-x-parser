@@ -50,6 +50,23 @@ export interface ITweet {
   visibility_results?: IVisibilityResults;
   /** 客户端事件信息 */
   clientEventInfo?: IClientEventInfo;
+  /** 直接在推文对象上的字段（用于通知数据） */
+  full_text?: string;
+  created_at?: string;
+  user_id_str?: string;
+  retweet_count?: number;
+  favorite_count?: number;
+  reply_count?: number;
+  quote_count?: number;
+  lang?: string;
+  conversation_id_str?: string;
+  conversation_id?: string;
+  possibly_sensitive?: boolean;
+  retweeted_status_id_str?: string;
+  quoted_status_id_str?: string;
+  entities?: any;
+  extended_entities?: any;
+  entryId?: string;
 }
 
 /**

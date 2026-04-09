@@ -26,10 +26,8 @@ export interface IUser {
   has_graduated_access?: boolean;
   /** 是否蓝V验证 */
   is_blue_verified?: boolean;
-  /** 关注请求已发送 */
-  follow_request_sent?: boolean;
   /** 位置 */
-  location?: ILocation;
+  location?: ILocation | string;
   /** 媒体权限 */
   media_permissions?: IMediaPermissions;
   /** 模仿评论粉丝标签 */
@@ -58,6 +56,48 @@ export interface IUser {
   tipjar_settings?: ITipjarSettings;
   /** 验证信息 */
   verification?: IVerification;
+  /** 直接在用户对象上的字段（用于通知数据） */
+  name?: string;
+  screen_name?: string;
+  profile_image_url_https?: string;
+  verified?: boolean;
+  followers_count?: number;
+  friends_count?: number;
+  statuses_count?: number;
+  description?: string;
+  url?: string;
+  verified_type?: VerifiedType;
+  created_at?: string;
+  profile_banner_url?: string;
+  protected?: boolean;
+  lang?: string;
+  contributors_enabled?: boolean;
+  is_translator?: boolean;
+  is_translation_enabled?: boolean;
+  profile_background_color?: string;
+  profile_background_image_url?: string;
+  profile_background_image_url_https?: string;
+  profile_background_tile?: boolean;
+  profile_link_color?: string;
+  profile_sidebar_border_color?: string;
+  profile_sidebar_fill_color?: string;
+  profile_text_color?: string;
+  profile_use_background_image?: boolean;
+  default_profile?: boolean;
+  default_profile_image?: boolean;
+  following?: boolean;
+  follow_request_sent?: boolean;
+  notifications?: boolean;
+  blocking?: boolean;
+  blocked_by?: boolean;
+  want_retweets?: boolean;
+  profile_interstitial_type?: string;
+  translator_type?: string;
+  withheld_in_countries?: string[];
+  followed_by?: boolean;
+  ext_is_blue_verified?: boolean;
+  ext_highlighted_label?: any;
+  entities?: any;
 }
 
 export interface ITipjarSettings {

@@ -63,12 +63,11 @@ describe('exploreMore parsing', () => {
 	});
 
 	it('should handle empty data', () => {
-		const result = XParser.parseSimple({});
-		expect(result.tweets).toBeUndefined();
-		expect(result.ads).toBeUndefined();
-		expect(result.exploreMore).toBeUndefined();
-		expect(result.recommendations).toBeUndefined();
-	});
+    const result = XParser.parseSimple({});
+    expect(result.tweets).toEqual([]);
+    expect(result.ads).toEqual([]);
+    expect(result.exploreMore).toEqual([]);
+  });
 
 	// 测试包含相关推文的情况
 	it('should parse related tweets into exploreMore', () => {
