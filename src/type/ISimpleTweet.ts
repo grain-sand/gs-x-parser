@@ -3,6 +3,7 @@
  */
 import { ISimplePhoto, ISimpleVideo, ISimpleUrl } from './ISimpleMedia';
 import { ISimpleUser } from './ISimpleUser';
+import { TweetQuality } from './ITypes';
 
 export interface ISimpleTweet {
   /** 推文REST ID */
@@ -39,4 +40,6 @@ export interface ISimpleTweet {
   videos?: ISimpleVideo[];
   /** URL数组 */
   urls?: ISimpleUrl[];
+  /** 推文质量 */
+  quality?: TweetQuality;
 }

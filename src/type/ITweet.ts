@@ -40,6 +40,66 @@ export interface ITweet {
   retweeted_status_result?: IRetweetedStatusResult;
   /** 超级关注回复用户结果 */
   superFollowsReplyUserResult?: ISuperFollowsReplyUserResult;
+  /** 可见性结果 */
+  visibility_results?: IVisibilityResults;
+  /** 客户端事件信息 */
+  clientEventInfo?: IClientEventInfo;
+}
+
+/**
+ * 客户端事件信息接口
+ */
+export interface IClientEventInfo {
+  /** 组件 */
+  component?: string;
+  /** 详情 */
+  details?: IClientEventDetails;
+}
+
+/**
+ * 客户端事件详情接口
+ */
+export interface IClientEventDetails {
+  /** 会话详情 */
+  conversationDetails?: IConversationDetails;
+  /** 时间线详情 */
+  timelinesDetails?: ITimelinesDetails;
+}
+
+/**
+ * 会话详情接口
+ */
+export interface IConversationDetails {
+  /** 会话部分 */
+  conversationSection?: string;
+}
+
+/**
+ * 时间线详情接口
+ */
+export interface ITimelinesDetails {
+  /** 控制器数据 */
+  controllerData?: string;
+}
+
+/**
+ * 可见性结果接口
+ */
+export interface IVisibilityResults {
+  /** 推文质量 */
+  tweet_visibility_annotations?: ITweetVisibilityAnnotation[];
+}
+
+/**
+ * 推文可见性注释接口
+ */
+export interface ITweetVisibilityAnnotation {
+  /** 类型 */
+  type?: string;
+  /** 理由 */
+  reason?: string;
+  /** 推文质量 */
+  tweet_quality?: string;
 }
 
 /**

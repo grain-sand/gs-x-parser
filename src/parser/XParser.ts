@@ -158,6 +158,23 @@ export class XParser {
    */
   static convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet {
     const legacy = tweet.legacy;
+    // 提取推文质量
+    let tweetQuality;
+    if (tweet.visibility_results?.tweet_visibility_annotations) {
+      const annotation = tweet.visibility_results.tweet_visibility_annotations.find(
+        (item) => item.tweet_quality
+      );
+      tweetQuality = annotation?.tweet_quality as any;
+    } else if (tweet.clientEventInfo?.details?.conversationDetails?.conversationSection) {
+      // 从 clientEventInfo 中提取质量信息
+      tweetQuality = tweet.clientEventInfo?.details?.conversationDetails?.conversationSection as any;
+    }
+
+    // 如果质量信息不存在，默认为高质量
+    if (!tweetQuality) {
+      tweetQuality = 'HighQuality';
+    }
+
     const simpleTweet: ISimpleTweet = {
       rest_id: tweet.rest_id,
       full_text: legacy?.full_text || '',
@@ -177,7 +194,8 @@ export class XParser {
       possibly_sensitive: legacy?.possibly_sensitive,
       is_retweet: !!legacy?.retweeted_status_id_str,
       retweeted_status_id: legacy?.retweeted_status_id_str,
-      quoted_status_id: legacy?.quoted_status_id_str
+      quoted_status_id: legacy?.quoted_status_id_str,
+      quality: tweetQuality
     };
 
     // 提取媒体
