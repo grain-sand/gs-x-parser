@@ -8,6 +8,7 @@ export interface ITimeline {
 export interface ITimelineInstruction {
   type?: string;
   entries?: ITimelineEntry[];
+  entry?: ITimelineEntry;
 }
 
 export interface ITimelineEntry {
@@ -22,7 +23,7 @@ export interface ITimelineContent {
   itemContent?: ITimelineItemContent;
   items?: ITimelineModuleItem[];
   displayType?: DisplayType;
-  clientEventInfo?: IClientEventInfo;
+  clientEventInfo?: ITimelineClientEventInfo;
   feedbackInfo?: IFeedbackInfo;
   metadata?: IMetadata;
 }
@@ -42,9 +43,18 @@ export interface ITimelineItemContent {
   tweet_results?: ITweetResults;
   tweetDisplayType?: TweetDisplayType;
   hasModeratedReplies?: boolean;
-  clientEventInfo?: IClientEventInfo;
+  clientEventInfo?: ITimelineClientEventInfo;
   content?: ITimelineMessageContent;
   impressionCallbacks?: IEndpointCallback[];
+  display_type?: string;
+  text?: string;
+  socialContext?: ISocialContext;
+}
+
+export interface ISocialContext {
+  contextType?: string;
+  text?: string;
+  type?: string;
 }
 
 export interface ITimelineMessageContent {
@@ -65,7 +75,7 @@ export interface IAction {
   url?: string;
   dismissOnClick?: boolean;
   onClickCallbacks?: IEndpointCallback[];
-  clientEventInfo?: IClientEventInfo;
+  clientEventInfo?: ITimelineClientEventInfo;
 }
 
 export interface IEndpointCallback {
@@ -88,27 +98,30 @@ export interface ITweetResults {
 export interface ITimelineModuleItem {
   entryId?: string;
   item?: ITimelineModuleItemContent;
+  dispensable?: boolean;
 }
 
 export interface ITimelineModuleItemContent {
   itemContent?: ITimelineItemContent;
-  clientEventInfo?: IClientEventInfo;
+  clientEventInfo?: ITimelineClientEventInfo;
 }
 
-export interface IClientEventInfo {
-  details?: IClientEventDetails;
+export interface ITimelineClientEventInfo {
+  component?: string;
+  details?: ITimelineClientEventDetails;
+  element?: string;
 }
 
-export interface IClientEventDetails {
-  conversationDetails?: IConversationDetails;
-  timelinesDetails?: ITimelinesDetails;
+export interface ITimelineClientEventDetails {
+  conversationDetails?: ITimelineConversationDetails;
+  timelinesDetails?: ITimelineTimelinesDetails;
 }
 
-export interface IConversationDetails {
+export interface ITimelineConversationDetails {
   conversationSection?: string;
 }
 
-export interface ITimelinesDetails {
+export interface ITimelineTimelinesDetails {
   controllerData?: string;
   injectionType?: InjectionType;
 }

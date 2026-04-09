@@ -206,7 +206,7 @@ export class XParser {
       legacy.extended_entities.media.forEach((media: IMediaEntity) => {
         if (media.type === 'photo') {
           // 处理图片尺寸
-          let simpleSizes;
+          let simpleSizes: any;
           if (media.sizes) {
             simpleSizes = {};
             if (media.sizes.thumb) {

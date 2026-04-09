@@ -135,7 +135,7 @@ export type UserDisplayType = typeof USER_DISPLAY_TYPES[number];
 /**
  * 注入类型常量
  */
-export const INJECTION_TYPES = ['ForYouInNetwork', 'ForYouPromoted', 'WhoToFollow', 'creators-only-connect-tab', 'CommunityToJoin'] as const;
+export const INJECTION_TYPES = ['ForYouInNetwork', 'ForYouPromoted', 'WhoToFollow', 'creators-only-connect-tab', 'CommunityToJoin', 'FollowingInNetwork'] as const;
 
 /**
  * 注入类型联合类型
@@ -422,4 +422,3 @@ export enum IdPrefixes {
    */
   Trends = 'trends-',
 }
-

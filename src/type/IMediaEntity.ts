@@ -178,11 +178,25 @@ export interface IMediaFeatures {
 }
 
 /**
+ * 面部接口
+ */
+export interface IFace {
+  /** 高度 */
+  h?: number;
+  /** 宽度 */
+  w?: number;
+  /** X坐标 */
+  x?: number;
+  /** Y坐标 */
+  y?: number;
+}
+
+/**
  * 媒体特性接口
  */
 export interface IMediaFeature {
   /** 面部 */
-  faces?: any[];
+  faces?: IFace[];
 }
 
 /**

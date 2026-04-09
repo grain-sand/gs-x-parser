@@ -322,6 +322,8 @@ export interface IImageValue {
   width?: number;
   /** URL */
   url?: string;
+  /** 替代文本 */
+  alt?: string;
 }
 
 /**
