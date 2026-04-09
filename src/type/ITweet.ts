@@ -20,6 +20,12 @@ export interface ITweet {
   unmention_data?: Record<string, unknown>;
   /** 编辑控制 */
   edit_control?: IEditControl;
+  /** Grok分析按钮 */
+  grok_analysis_button?: boolean;
+  /** Grok注释 */
+  grok_annotations?: Record<string, unknown>;
+  /** Grok翻译帖子可用性 */
+  grok_translated_post_with_availability?: IGrokTranslatedPostWithAvailability;
   /** 之前的计数 */
   previous_counts?: IPreviousCounts;
   /** 是否可翻译 */
@@ -54,6 +60,8 @@ export interface IClientEventInfo {
   component?: string;
   /** 详情 */
   details?: IClientEventDetails;
+  /** 元素 */
+  element?: string;
 }
 
 /**
@@ -80,6 +88,8 @@ export interface IConversationDetails {
 export interface ITimelinesDetails {
   /** 控制器数据 */
   controllerData?: string;
+  /** 注入类型 */
+  injectionType?: string;
 }
 
 /**
@@ -396,4 +406,12 @@ export interface IUserValue {
   id_str?: string;
   /** 路径 */
   path?: string[];
+}
+
+/**
+ * Grok翻译帖子可用性接口
+ */
+export interface IGrokTranslatedPostWithAvailability {
+  /** 是否可用 */
+  is_available?: boolean;
 }

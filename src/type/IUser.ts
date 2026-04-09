@@ -16,25 +16,59 @@ export interface IUser {
   rest_id: string;
   /** 附属高亮标签 */
   affiliates_highlighted_label?: IAffiliatesHighlightedLabel;
+  /** 头像 */
+  avatar?: IAvatar;
+  /** 核心数据 */
+  core?: IUserCore;
+  /** 私信权限 */
+  dm_permissions?: IDmPermissions;
   /** 是否有毕业访问权限 */
   has_graduated_access?: boolean;
   /** 是否蓝V验证 */
   is_blue_verified?: boolean;
+  /** 关注请求已发送 */
+  follow_request_sent?: boolean;
+  /** 位置 */
+  location?: ILocation;
+  /** 媒体权限 */
+  media_permissions?: IMediaPermissions;
+  /** 模仿评论粉丝标签 */
+  parody_commentary_fan_label?: string;
+  /** 隐私设置 */
+  privacy?: IPrivacy;
   /** 头像形状 */
   profile_image_shape?: string;
+  /** 个人简介 */
+  profile_bio?: IProfileBio;
+  /** 个人简介语言 */
+  profile_description_language?: string;
+  /** 关系视角 */
+  relationship_perspectives?: IRelationshipPerspectives;
   /** 遗留用户数据 */
   legacy?: IUserLegacy;
   /** 专业信息 */
   professional?: IUserProfessional;
   /** 是否有超级关注资格 */
   super_follow_eligible?: boolean;
+  /** 是否被超级关注 */
+  super_followed_by?: boolean;
+  /** 是否超级关注 */
+  super_following?: boolean;
   /** 小费设置 */
   tipjar_settings?: ITipjarSettings;
+  /** 验证信息 */
+  verification?: IVerification;
 }
 
 export interface ITipjarSettings {
   /** 是否启用 */
   is_enabled?: boolean;
+  /** 比特币地址 */
+  bitcoin_handle?: string;
+  /** 以太坊地址 */
+  ethereum_handle?: string;
+  /** Patreon 句柄 */
+  patreon_handle?: string;
 }
 
 /**
@@ -131,4 +165,88 @@ export interface IUrl {
 export interface IBadge {
   /** URL */
   url?: string;
+}
+
+/**
+ * 头像接口
+ */
+export interface IAvatar {
+  /** 图像URL */
+  image_url?: string;
+}
+
+/**
+ * 用户核心数据接口
+ */
+export interface IUserCore {
+  /** 创建时间 */
+  created_at?: string;
+  /** 名称 */
+  name?: string;
+  /** 屏幕名称 */
+  screen_name?: string;
+}
+
+/**
+ * 私信权限接口
+ */
+export interface IDmPermissions {
+  /** 是否可以发送私信 */
+  can_dm?: boolean;
+}
+
+/**
+ * 位置接口
+ */
+export interface ILocation {
+  /** 位置 */
+  location?: string;
+}
+
+/**
+ * 媒体权限接口
+ */
+export interface IMediaPermissions {
+  /** 是否可以媒体标签 */
+  can_media_tag?: boolean;
+}
+
+/**
+ * 隐私设置接口
+ */
+export interface IPrivacy {
+  /** 是否受保护 */
+  protected?: boolean;
+}
+
+/**
+ * 个人简介接口
+ */
+export interface IProfileBio {
+  /** 描述 */
+  description?: string;
+}
+
+/**
+ * 关系视角接口
+ */
+export interface IRelationshipPerspectives {
+  /** 是否被阻塞 */
+  blocked_by?: boolean;
+  /** 是否阻塞 */
+  blocking?: boolean;
+  /** 是否被关注 */
+  followed_by?: boolean;
+  /** 是否关注 */
+  following?: boolean;
+  /** 是否静音 */
+  muting?: boolean;
+}
+
+/**
+ * 验证信息接口
+ */
+export interface IVerification {
+  /** 是否验证 */
+  verified?: boolean;
 }
