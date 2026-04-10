@@ -233,6 +233,16 @@ export const VIDEO_CONTENT_TYPES = ['application/x-mpegURL', 'video/mp4'] as con
 export type VideoContentType = typeof VIDEO_CONTENT_TYPES[number];
 
 /**
+ * 视频质量类型常量
+ */
+export const VIDEO_QUALITIES = ['high', 'medium', 'low'] as const;
+
+/**
+ * 视频质量类型联合类型
+ */
+export type VideoQuality = typeof VIDEO_QUALITIES[number];
+
+/**
  * 消息收件箱时间线索引常量
  */
 export const MESSAGE_INBOX_TIMELINE_INDEXES = ['trusted', 'untrusted', 'untrusted_low_quality'] as const;

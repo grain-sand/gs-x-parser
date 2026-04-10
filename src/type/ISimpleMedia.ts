@@ -1,7 +1,7 @@
 /**
  * 简单媒体类型，仅保留各子类型、各品质的URL与尺寸、说明
  */
-import { MediaType } from './ITypes';
+import { MediaType, VideoQuality } from './ITypes';
 
 export interface ISimpleMedia {
   /** 媒体键 */
@@ -79,7 +79,7 @@ export interface ISimpleMP4Video {
   /** 视频URL */
   url: string;
   /** 质量 */
-  quality?: string;
+  quality?: VideoQuality;
 }
 
 /**
