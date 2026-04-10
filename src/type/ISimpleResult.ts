@@ -18,6 +18,8 @@ export interface IResultBase<TweetType extends ISimpleTweet | ITweet, UserType e
   photos?: TweetType[];
   /** 包含视频的推文数组 */
   videos?: TweetType[];
+  /** 包含动态图片的推文数组 */
+  gifs?: TweetType[];
   /** 包含URL的推文数组 */
   urls?: TweetType[];
   /** 广告推文数组 */

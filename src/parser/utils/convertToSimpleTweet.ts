@@ -1,4 +1,4 @@
-import {IMediaEntity, ISimplePhoto, ISimpleTweet, ISimpleUrl, ISimpleVideo, ITweet, IUser} from '../../type';
+import {IMediaEntity, ISimplePhoto, ISimpleTweet, ISimpleUrl, ISimpleVideo, ISimpleGif, ITweet, IUser} from '../../type';
 import {convertToSimpleUser} from './convertToSimpleUser';
 
 /**
@@ -66,6 +66,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet 
 	if (media) {
 		const photos: ISimplePhoto[] = [];
 		const videos: ISimpleVideo[] = [];
+		const gifs: ISimpleGif[] = [];
 
 		media.forEach((mediaItem: IMediaEntity) => {
 			if (mediaItem.type === 'photo') {
@@ -121,7 +122,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet 
 					sizes: simpleSizes,
 					original_info: simpleOriginalInfo
 				});
-			} else if (mediaItem.type === 'video' || mediaItem.type === 'animated_gif') {
+			} else if (mediaItem.type === 'video') {
 				// 处理视频信息
 				// noinspection TypeScriptValidateTypes
 				const mp4Videos = mediaItem.video_info?.variants?.filter(item => item?.content_type === 'video/mp4'
@@ -137,7 +138,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet 
 
 				videos.push({
 					media_key: mediaItem.media_key || '',
-					type: mediaItem.type as 'video' | 'animated_gif',
+					type: 'video',
 					media_url_https: mediaItem.media_url_https || '',
 					display_url: mediaItem.display_url || '',
 					expanded_url: mediaItem.expanded_url || '',
@@ -146,11 +147,27 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet 
 					mp4: mp4Videos,
 					hls: hlsVideo?.url
 				});
+			} else if (mediaItem.type === 'animated_gif') {
+				// 处理动态图片信息
+				// noinspection TypeScriptValidateTypes
+				const mp4Video = mediaItem.video_info?.variants?.find(item => item?.content_type === 'video/mp4');
+
+				gifs.push({
+					media_key: mediaItem.media_key || '',
+					type: 'animated_gif',
+					media_url_https: mediaItem.media_url_https || '',
+					display_url: mediaItem.display_url || '',
+					expanded_url: mediaItem.expanded_url || '',
+					aspect_ratio: mediaItem.video_info?.aspect_ratio,
+					duration_millis: mediaItem.video_info?.duration_millis,
+					mp4: mp4Video?.url
+				});
 			}
 		});
 
 		if (photos.length > 0) simpleTweet.photos = photos;
 		if (videos.length > 0) simpleTweet.videos = videos;
+		if (gifs.length > 0) simpleTweet.gifs = gifs;
 	}
 
 	// 提取URL

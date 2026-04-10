@@ -47,7 +47,7 @@ export interface ISimplePhoto extends ISimpleMedia {
  */
 export interface ISimpleVideo extends ISimpleMedia {
   /** 媒体类型 */
-  type: Exclude<MediaType, 'photo'>;
+  type: 'video';
   /** 宽高比 */
   aspect_ratio?: number[];
   /** 时长（毫秒） */
@@ -56,6 +56,20 @@ export interface ISimpleVideo extends ISimpleMedia {
   mp4?: ISimpleMP4Video[];
   /** HLS 视频 URL */
   hls?: string;
+}
+
+/**
+ * 简单动态图片媒体类型
+ */
+export interface ISimpleGif extends ISimpleMedia {
+  /** 媒体类型 */
+  type: 'animated_gif';
+  /** 宽高比 */
+  aspect_ratio?: number[];
+  /** 时长（毫秒） */
+  duration_millis?: number;
+  /** MP4 视频 URL */
+  mp4?: string;
 }
 
 /**

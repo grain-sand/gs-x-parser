@@ -60,6 +60,7 @@ export class XParser {
       // 分类媒体推文
       result.photos = result.tweets.filter(tweet => tweet.photos && tweet.photos.length > 0);
       result.videos = result.tweets.filter(tweet => tweet.videos && tweet.videos.length > 0);
+      result.gifs = result.tweets.filter(tweet => tweet.gifs && tweet.gifs.length > 0);
       result.urls = result.tweets.filter(tweet => tweet.urls && tweet.urls.length > 0);
     }
 
@@ -112,8 +113,13 @@ export class XParser {
       result.videos = result.tweets.filter(tweet => {
         const legacy = tweet.legacy;
         return legacy && legacy.extended_entities && legacy.extended_entities.media &&
-               legacy.extended_entities.media.some((media: any) =>
-                 media.type === 'video' || media.type === 'animated_gif');
+               legacy.extended_entities.media.some((media: any) => media.type === 'video');
+      });
+
+      result.gifs = result.tweets.filter(tweet => {
+        const legacy = tweet.legacy;
+        return legacy && legacy.extended_entities && legacy.extended_entities.media &&
+               legacy.extended_entities.media.some((media: any) => media.type === 'animated_gif');
       });
 
       result.urls = result.tweets.filter(tweet => {
