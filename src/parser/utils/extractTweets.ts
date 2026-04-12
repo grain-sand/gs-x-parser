@@ -22,6 +22,36 @@ export function extractTweets(data: any): ITweet[] {
     });
   }
 
+  // 处理通知时间线结构
+  if (data?.data?.viewer_v2?.user_results?.result?.notification_timeline?.timeline?.instructions) {
+    data.data.viewer_v2.user_results.result.notification_timeline.timeline.instructions.forEach((instruction: any) => {
+      if (instruction.entries) {
+        instruction.entries.forEach((entry: any) => {
+          if (entry.content?.itemContent?.template?.target_objects) {
+            entry.content.itemContent.template.target_objects.forEach((targetObject: any) => {
+              if (targetObject?.tweet_results?.result) {
+                const tweet = targetObject.tweet_results.result;
+                if (tweet && tweet.rest_id && !tweetIds.has(tweet.rest_id)) {
+                  // 添加 __typename 字段以保持一致性
+                  tweet.__typename = 'Tweet';
+                  // 保存推文的上下文信息
+                  if (entry.entryId) {
+                    (tweet as any).entryId = entry.entryId;
+                  }
+                  if (entry.content.clientEventInfo) {
+                    (tweet as any).clientEventInfo = entry.content.clientEventInfo;
+                  }
+                  tweetIds.add(tweet.rest_id);
+                  tweets.push(tweet);
+                }
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+
   // 递归搜索推文
   const searchTweets = (obj: any, entryId?: string, clientEventInfo?: any) => {
     if (obj && typeof obj === 'object') {
