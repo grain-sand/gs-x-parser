@@ -11,6 +11,8 @@ const regionSelector = 'main [data-testid="primaryColumn"] [role="region"]'
 
 const cellSelector = `${regionSelector} [data-testid="cellInnerDiv"]`
 
+const innerSelector = `${cellSelector} [aria-labelledby^="id__"]`
+
 const itemSelector = `${cellSelector} [role="listitem"]`
 
 const tweetSelector = [cellSelector, itemSelector].join(',')
@@ -25,6 +27,12 @@ function addedElements(els: HTMLElement[]) {
 
 	function processTarget(el: HTMLElement) {
 		if (el.matches(tweetSelector)) {
+			const id = getTweetId(el);
+			if (id) {
+				tweets.push(id)
+			}
+			els.push(...el.querySelectorAll(innerSelector))
+		} else if (el.matches(innerSelector)) {
 			const id = getTweetId(el);
 			if (id) {
 				tweets.push(id)

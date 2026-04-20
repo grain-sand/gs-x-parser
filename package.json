@@ -11,7 +11,7 @@
 		"test:browser": "vitest run --environment browser"
 	},
 	"dependencies": {
-		"gs-dom": "^0.2.5",
+		"gs-dom": "D:\\WorkSpace\\grain-sand\\gs-dom\\dist",
 		"gs-web-hooks": "^1.0.0"
 	},
 	"devDependencies": {
