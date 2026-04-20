@@ -12,3 +12,5 @@ export * from './ISimpleUser';
 export * from './ISimpleTweet';
 export * from './ISimpleMedia';
 export * from './ISimpleResult';
+export * from './IListenTweetOption';
+export * from './ListenTweetEvents';
