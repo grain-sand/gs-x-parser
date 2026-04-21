@@ -1,9 +1,9 @@
 import {getReactProps} from "gs-dom/frs-probe";
 import {DomDisplayType, IReactXCellDivProps} from "../type";
-import {getTweetIdByDom} from "./getTweetIdByDom";
+import {parseTweetIdByDom} from "./parseTweetIdByDom";
 
-export function getTweetUserId(el: Element): string | undefined {
-	return getTweetUserIdByProps(getReactProps(el))||getTweetIdByDom(el);
+export function parseUserIdByProps(el: Element): string | undefined {
+	return getTweetUserIdByProps(getReactProps(el))||parseTweetIdByDom(el);
 }
 
 /**

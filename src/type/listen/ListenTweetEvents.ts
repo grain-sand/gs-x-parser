@@ -15,4 +15,8 @@ export const enum ListenTweetEvents {
 	 * 推文渲染
 	 */
 	TweetRendered = '__listen-tweet-tweet-rendered',
+	/**
+	 * 视频渲染
+	 */
+	VideoRendered = '__listen-tweet-video-rendered',
 }

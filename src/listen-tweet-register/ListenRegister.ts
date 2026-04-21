@@ -19,4 +19,8 @@ export class ListenRegister {
 		on(ListenTweetEvents.TweetRendered, ({detail}: CustomEvent) => listener(detail))
 	}
 
+	// static addVideoRenderedListener(listener: (tweetIds: IGetTweetVideoIdResult[]) => void) {
+	// 	on(ListenTweetEvents.VideoRendered, ({detail}: CustomEvent) => listener(detail))
+	// }
+
 }
