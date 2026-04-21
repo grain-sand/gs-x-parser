@@ -1,5 +1,4 @@
 export * from './dom/DisplayType'
-export * from './dom/IClientEventInfo'
 export * from './dom/IContent'
 export * from './dom/IEntry'
 export * from './dom/IItem'

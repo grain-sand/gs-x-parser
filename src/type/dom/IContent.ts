@@ -1,4 +1,4 @@
-import { DisplayType } from './DisplayType';
+import { DomDisplayType } from './DisplayType';
 
 export interface IUser {
 	default_profile?: boolean;
@@ -142,7 +142,7 @@ export interface IContent {
 	id?: string;
 	prerollMetadata?: any;
 	promotedMetadata?: any;
-	displayType?: DisplayType;
+	displayType?: DomDisplayType;
 	tweetContext?: any;
 	socialContext?: any;
 	innerTombstoneInfo?: any;

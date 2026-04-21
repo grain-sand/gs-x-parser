@@ -1,11 +1,11 @@
 import {IReactProps} from "gs-dom/frs-probe";
-import { DisplayType } from './DisplayType';
+import { DomDisplayType } from './DisplayType';
 import { IEntry } from './IEntry';
 import { IItem } from './IItem';
 import { IModule } from './IModule';
 
 export interface IReactXCellDivProps extends IReactProps<IEntry, IItem, IReactXCellDivProps> {
-	displayType?: DisplayType;
+	displayType?: DomDisplayType;
 	module?: IModule;
 	setAPI?: Function;
 }
