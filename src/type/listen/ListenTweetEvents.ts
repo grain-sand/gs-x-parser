@@ -18,5 +18,5 @@ export const enum ListenTweetEvents {
 	/**
 	 * 视频渲染
 	 */
-	VideoRendered = '__listen-tweet-video-rendered',
+	// VideoRendered = '__listen-tweet-video-rendered',
 }
