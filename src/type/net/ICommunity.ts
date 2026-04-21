@@ -1,4 +1,5 @@
-import {IUser, IColorPalette} from './index';
+import {IUser} from "./IUser";
+import {IColorPalette} from "./ITweet";
 
 export interface ICommunityResult {
   result?: ICommunity;

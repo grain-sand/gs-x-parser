@@ -1,7 +1,8 @@
 /**
  * 媒体相关类型定义
  */
-import { IColorPalette } from './index';
+
+import {IColorPalette} from "./ITweet";
 
 /**
  * 媒体实体接口

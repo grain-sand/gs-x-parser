@@ -1,8 +1,10 @@
 /**
  * 推文类型定义
  */
-import {IMediaEntity, ITweetBase, IUser} from './index';
 import { EligibilityType, LegacyCardBindingKeyType, LegacyCardBindingValueType, ViewState } from './ITypes';
+import {IUser} from "./IUser";
+import {ITweetBase} from "./ITweetBase";
+import {IMediaEntity} from "./IMediaEntity";
 
 /**
  * 推文接口

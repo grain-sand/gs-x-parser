@@ -1,8 +1,8 @@
 /**
  * 用户类型定义
  */
-import {IUserBase} from './index';
-import { UserDisplayType, UserLabelType, VerifiedType, UrlType } from './ITypes';
+import {UrlType, UserDisplayType, UserLabelType, VerifiedType} from './ITypes';
+import {IUserBase} from "./IUserBase";
 
 /**
  * 用户接口

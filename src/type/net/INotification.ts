@@ -1,4 +1,7 @@
-import {IBindingValue, ICardPlatform, IExtendedEntities, IOk, ITweetBase, IUserBase} from './index';
+import {IUserBase} from "./IUserBase";
+import {ITweetBase} from "./ITweetBase";
+import {IBindingValue, ICardPlatform, IExtendedEntities} from "./ITweet";
+import {IOk} from "./IMessage";
 
 export interface INotificationResponse {
   globalObjects?: IGlobalObjects;

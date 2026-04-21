@@ -1,5 +1,5 @@
-import { ITweet } from './index';
 import { TimelineEntryType, TweetDisplayType, DisplayType, InjectionType } from './ITypes';
+import {ITweet} from "./ITweet";
 
 export interface ITimeline {
   instructions?: ITimelineInstruction[];

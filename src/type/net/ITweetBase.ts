@@ -1,7 +1,9 @@
 /**
  * 推文基础类型，包含所有推文相关类型共有的字段
  */
-import { IUrlEntity, IMediaEntity } from './index';
+
+import {IMediaEntity} from "./IMediaEntity";
+import {IUrlEntity} from "./IUserBase";
 
 /**
  * 推文基础接口
