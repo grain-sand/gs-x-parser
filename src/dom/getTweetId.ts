@@ -1,10 +1,6 @@
-// noinspection TypeScriptUnresolvedReference
-
 import {getReactProps} from "gs-dom/frs-probe";
-import {DisplayType, IReactXCellDivProps} from "../type";
-
-
-const DomIdReg = /status\/(\d+)/
+import {DomDisplayType, IReactXCellDivProps} from "../type";
+import {getTweetIdByDom} from "./getTweetIdByDom";
 
 export function getTweetId(el: Element): string | undefined {
 	let id = getTweetIdByProps(getReactProps(el)!)
@@ -12,11 +8,6 @@ export function getTweetId(el: Element): string | undefined {
 		return id;
 	}
 	return getTweetIdByDom(el);
-}
-
-export function getTweetIdByDom(el: Element) {
-	const href: string = (el?.querySelector('a[href*="/status/"]') as any)?.href
-	return DomIdReg.exec(href || '')?.[1]
 }
 
 /**
@@ -27,6 +18,7 @@ export function getTweetIdByDom(el: Element) {
 export function getTweetIdByProps(props: IReactXCellDivProps): string | undefined {
 	// 尝试从 targetTweets 字段获取 tweet ID
 	if (props.entry?.content?.targetTweets?.['0']) {
+		// noinspection TypeScriptUnresolvedReference
 		return props.entry.content.targetTweets['0'];
 	} else if (props.children?.entry?.content?.targetTweets?.['0']) {
 		return props.children.entry.content.targetTweets['0'];
@@ -38,6 +30,7 @@ export function getTweetIdByProps(props: IReactXCellDivProps): string | undefine
 
 	// 尝试从 url 字段提取 tweet ID
 	if (props.entry?.content?.url?.url) {
+		// noinspection TypeScriptUnresolvedReference
 		const tweetIdFromUrl = extractTweetIdFromUrl(props.entry.content.url.url);
 		if (tweetIdFromUrl) {
 			return tweetIdFromUrl;
@@ -69,7 +62,7 @@ export function getTweetIdByProps(props: IReactXCellDivProps): string | undefine
 	}
 
 	// 检查 displayType 是否为 Tweet、FocalTweet 或 MediaGrid
-	let displayType: DisplayType | undefined;
+	let displayType: DomDisplayType | undefined;
 
 	// 尝试从不同路径获取 displayType
 	if (props.displayType) {
@@ -129,6 +122,7 @@ export function getTweetIdByProps(props: IReactXCellDivProps): string | undefine
 	} else if (props.children?.props?.item?.id) {
 		contentId = props.children.props.item.id;
 	} else if (props.item?.data?.content?.id) {
+		// noinspection TypeScriptUnresolvedReference
 		contentId = props.item.data.content.id;
 	} else if (props.children?.item?.data?.content?.id) {
 		contentId = props.children.item.data.content.id;

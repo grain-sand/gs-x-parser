@@ -8,4 +8,5 @@ export interface IReactXCellDivProps extends IReactProps<IDomEntry, IItem, IReac
 	displayType?: DomDisplayType;
 	module?: IModule;
 	setAPI?: Function;
+	children?: any;
 }

@@ -1,14 +1,12 @@
 {
-  "include": ["src/**/*.ts"],
+  "include": ["src/dom/**/*.ts"],
   "compilerOptions": {
-	"baseUrl": ".",
 	"declaration": false,
 	"esModuleInterop": true,
 	"experimentalDecorators": true,
 	"preserveConstEnums": true,
 	"module": "ESNext",
 	"moduleResolution": "bundler",
-	"outDir": "./dist/lib",
 	"sourceMap": false,
 	"strict": true,
 	"target": "ESNext",

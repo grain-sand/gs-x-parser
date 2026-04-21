@@ -1,22 +1,10 @@
-import {getTweetId} from "gs-dom/frs-probe";
 import {observe} from "gs-dom/observer";
 import {trigger} from "gs-dom/event";
 import {ListenTweetEvents} from "../type";
 import {ListenFlag} from "./ListenFlag";
-
+import {getTweetId, primaryCellInnerSelector, primaryTweetSelector} from "../dom";
 
 const containerSelector = 'main,main *'
-
-const regionSelector = 'main [data-testid="primaryColumn"] [role="region"]'
-
-const cellSelector = `${regionSelector} [data-testid="cellInnerDiv"]`
-
-const innerSelector = `${cellSelector} [aria-labelledby^="id__"]`
-
-const itemSelector = `${cellSelector} [role="listitem"]`
-
-const tweetSelector = [cellSelector, itemSelector].join(',')
-
 
 function addedElements(els: HTMLElement[]) {
 	if (!ListenFlag.flag?.enableTweetRendered) {
@@ -26,19 +14,19 @@ function addedElements(els: HTMLElement[]) {
 	const tweets: string[] = []
 
 	function processTarget(el: HTMLElement) {
-		if (el.matches(tweetSelector)) {
+		if (el.matches(primaryTweetSelector)) {
 			const id = getTweetId(el);
 			if (id) {
 				tweets.push(id)
 			}
-			els.push(...el.querySelectorAll(innerSelector))
-		} else if (el.matches(innerSelector)) {
+			els.push(...el.querySelectorAll(primaryCellInnerSelector))
+		} else if (el.matches(primaryCellInnerSelector)) {
 			const id = getTweetId(el);
 			if (id) {
 				tweets.push(id)
 			}
 		} else if (el.matches(containerSelector) && el.clientHeight > 300) {
-			els.push(...el.querySelectorAll(tweetSelector))
+			els.push(...el.querySelectorAll(primaryTweetSelector))
 		}
 	}
 
