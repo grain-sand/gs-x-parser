@@ -18,7 +18,7 @@ const notificationsFiles = [
 ];
 
 const getNotificationData = (fileName: string) => {
-  const filePath = path.join(__dirname, '../tmp/notifications', fileName);
+  const filePath = path.join(__dirname, '../tmp/net/notifications', fileName);
   const data = fs.readFileSync(filePath, 'utf8');
   return JSON.parse(data);
 };

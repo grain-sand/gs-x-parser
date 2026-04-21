@@ -9,7 +9,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 // 读取HomeTimeline-ShowCover.json文件
-const homeTimelinePath = path.join(__dirname, '../tmp', 'home', 'HomeTimeline-ShowCover.json');
+const homeTimelinePath = path.join(__dirname, '../tmp/net', 'home', 'HomeTimeline-ShowCover.json');
 
 if (!fs.existsSync(homeTimelinePath)) {
   console.warn('HomeTimeline-ShowCover.json not found, skipping ad and recommendation tests');

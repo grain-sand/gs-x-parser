@@ -1,7 +1,7 @@
 import { IItemMetadata } from './IItemMetadata';
 import { IContent } from './IContent';
 
-export interface IEntry {
+export interface IDomEntry {
 	type?: string;
 	entryId?: string;
 	sortIndex?: string;

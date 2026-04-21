@@ -1,6 +1,6 @@
 export * from './dom/DisplayType'
 export * from './dom/IContent'
-export * from './dom/IEntry'
+export * from './dom/IDomEntry'
 export * from './dom/IItem'
 export * from './dom/IItemData'
 export * from './dom/IItemMetadata'

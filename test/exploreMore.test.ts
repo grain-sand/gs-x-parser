@@ -13,7 +13,7 @@ describe('exploreMore parsing', () => {
 	testFiles.forEach(fileName => {
 		it(`should parse ${fileName} correctly`, () => {
 			// 读取测试数据
-			const filePath = path.join(__dirname, '../tmp/detail', fileName);
+			const filePath = path.join(__dirname, '../tmp/net/detail', fileName);
 			const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 			// 测试默认选项（不包含exploreMore）
@@ -72,7 +72,7 @@ describe('exploreMore parsing', () => {
 	// 测试包含相关推文的情况
 	it('should parse related tweets into exploreMore', () => {
 		// 读取包含相关推文的测试数据
-		const filePath = path.join(__dirname, '../tmp/detail', 'TweetDetail_related-tweets.json');
+		const filePath = path.join(__dirname, '../tmp/net/detail', 'TweetDetail_related-tweets.json');
 		const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 		// 解析数据

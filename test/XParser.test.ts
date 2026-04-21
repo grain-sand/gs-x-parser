@@ -11,7 +11,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 // 读取tmp目录下的所有JSON文件
-const tmpDir = path.join(__dirname, '../tmp');
+const tmpDir = path.join(__dirname, '../tmp/net');
 const jsonFiles: string[] = [];
 
 function findJsonFiles(dir: string) {
