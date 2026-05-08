@@ -1,4 +1,13 @@
-import {IMediaEntity, ISimplePhoto, ISimpleTweet, ISimpleUrl, ISimpleVideo, ISimpleGif, ITweet, IUser} from '../../type';
+import {
+	IMediaEntity,
+	ISimplePhoto,
+	ISimpleTweet,
+	ISimpleUrl,
+	ISimpleVideo,
+	ISimpleGif,
+	ITweet,
+	IUser
+} from '../../type';
 import {convertToSimpleUser} from './convertToSimpleUser';
 
 /**
@@ -41,7 +50,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet 
 	const simpleTweet: ISimpleTweet = {
 		rest_id: tweet.rest_id,
 		full_text: tweetData.full_text || '',
-		created_at: tweetData.created_at || '',
+		created_at: tweetData.created_at ? new Date(tweetData.created_at).getTime() : -1,
 		user: user ? convertToSimpleUser(user) : {
 			rest_id: tweetData.user_id_str || '',
 			name: '',

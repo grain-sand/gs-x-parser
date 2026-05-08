@@ -10,8 +10,8 @@ export interface ISimpleTweet {
   rest_id: string;
   /** 推文完整文本 */
   full_text: string;
-  /** 创建时间 */
-  created_at: string;
+  /** 创建时间（Unix时间戳，毫秒） */
+  created_at: number;
   /** 用户信息 */
   user: ISimpleUser;
   /** 转发数 */

@@ -8,6 +8,7 @@ import {IUser, ISimpleUser} from '../../type';
 export function convertToSimpleUser(user: IUser): ISimpleUser {
   return {
     rest_id: user.rest_id,
+    created_at: (user.legacy?.created_at || user.created_at) ? new Date(user.legacy?.created_at || user.created_at!).getTime() : undefined,
     name: (user.legacy?.name) || user.name || user.core?.name || '',
     screen_name: (user.legacy?.screen_name) || user.screen_name || user.core?.screen_name || '',
     profile_image_url_https: (user.legacy?.profile_image_url_https) || user.profile_image_url_https || user.avatar?.image_url || '',

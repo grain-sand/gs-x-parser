@@ -1,12 +1,11 @@
 {
 	"name": "gs-x-parser",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"author": {
 		"name": "grain-sand"
 	},
 	"scripts": {
 		"build": "gs-rollup -c",
-		"test:hello": "vitest run hello",
 		"check-type": "tsc --noEmit",
 		"test": "vitest run",
 		"test:browser": "vitest run --environment browser"

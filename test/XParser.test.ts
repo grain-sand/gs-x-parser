@@ -47,7 +47,8 @@ describe('XParser', () => {
 					description: 'Test description',
 					location: 'Test Location',
 					url: 'https://example.com',
-					verified_type: 'Blue'
+					verified_type: 'Blue',
+					created_at: '2024-01-01T00:00:00Z'
 				},
 				affiliates_highlighted_label: {
 					label: {
@@ -59,6 +60,7 @@ describe('XParser', () => {
 			const simpleUser = convertToSimpleUser(mockUser);
 
 			expect(simpleUser.rest_id).toBe('12345');
+			expect(simpleUser.created_at).toBe(new Date('2024-01-01T00:00:00Z').getTime());
 			expect(simpleUser.name).toBe('Test User');
 			expect(simpleUser.screen_name).toBe('testuser');
 			expect(simpleUser.profile_image_url_https).toBe('https://example.com/avatar.jpg');
@@ -129,7 +131,7 @@ describe('XParser', () => {
 
 			expect(simpleTweet.rest_id).toBe('67890');
 			expect(simpleTweet.full_text).toBe('Test tweet');
-			expect(simpleTweet.created_at).toBe('2024-01-01T00:00:00Z');
+			expect(simpleTweet.created_at).toBe(new Date('2024-01-01T00:00:00Z').getTime());
 			expect(simpleTweet.user).toBeDefined();
 			expect(simpleTweet.user.rest_id).toBe('12345');
 			expect(simpleTweet.retweet_count).toBe(10);
@@ -179,7 +181,7 @@ describe('XParser', () => {
 						expect(tweet.full_text).toBeDefined();
 						expect(typeof tweet.full_text).toBe('string');
 						expect(tweet.created_at).toBeDefined();
-						expect(typeof tweet.created_at).toBe('string');
+						expect(typeof tweet.created_at).toBe('number');
 						expect(tweet.user).toBeDefined();
 						expect(typeof tweet.user).toBe('object');
 						expect(tweet.user.rest_id).toBeDefined();

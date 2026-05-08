@@ -6,6 +6,8 @@ import { UserLabelType, VerifiedType } from './ITypes';
 export interface ISimpleUser {
   /** 用户REST ID */
   rest_id: string;
+  /** 创建时间（Unix时间戳，毫秒） */
+  created_at?: number;
   /** 用户名 */
   name: string;
   /** 用户屏幕名称 */

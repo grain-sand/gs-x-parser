@@ -55,6 +55,7 @@ describe('XParser notifications parsing', () => {
             expect(tweet.rest_id).toBeDefined();
             expect(tweet.full_text).toBeDefined();
             expect(tweet.created_at).toBeDefined();
+            expect(typeof tweet.created_at).toBe('number');
             expect(tweet.user).toBeDefined();
             expect(tweet.user.rest_id).toBeDefined();
           });
