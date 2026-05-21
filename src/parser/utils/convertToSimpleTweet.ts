@@ -190,14 +190,27 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 	}
 
 	// 提取URL
-	if (tweetData.entities?.urls) {
+	if (tweetData.entities?.urls?.length) {
 		const urls: ISimpleUrl[] = tweetData.entities.urls.map((url: any) => ({
 			url: url.url || '',
 			expanded_url: url.expanded_url || '',
-			display_url: url.display_url || ''
+			display_url: url.display_url || '',
+			indices: url.indices
 		}));
 
 		if (urls.length > 0) simpleTweet.urls = urls;
+	}
+
+	// 提取Note推文中的URL
+	if (tweet.note_tweet?.note_tweet_results?.result?.entity_set?.urls?.length) {
+		const noteUrls: ISimpleUrl[] = tweet.note_tweet.note_tweet_results.result.entity_set.urls.map((url: any) => ({
+			url: url.url || '',
+			expanded_url: url.expanded_url || '',
+			display_url: url.display_url || '',
+			indices: url.indices
+		}));
+
+		if (noteUrls.length > 0) simpleTweet.note_urls = noteUrls;
 	}
 
 	return cleanNullField(simpleTweet);

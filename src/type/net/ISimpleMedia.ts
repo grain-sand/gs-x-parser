@@ -106,4 +106,6 @@ export interface ISimpleUrl {
   expanded_url?: string;
   /** 显示URL */
   display_url?: string;
+  /** 文本位置索引 */
+  indices?: number[];
 }

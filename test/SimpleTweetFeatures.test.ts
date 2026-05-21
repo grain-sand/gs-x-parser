@@ -9,6 +9,142 @@ import {XParser} from '../src';
 import {convertToSimpleTweet} from '../src/parser/utils/convertToSimpleTweet';
 
 describe('ISimpleTweet New Features', () => {
+	describe('ISimpleUrl indices field', () => {
+		it('should extract indices from tweet entities urls', () => {
+			const mockTweet: any = {
+				__typename: 'Tweet',
+				rest_id: '67890',
+				legacy: {
+					full_text: 'Check out https://example.com',
+					created_at: '2024-01-01T00:00:00Z',
+					user_id_str: '12345',
+					entities: {
+						urls: [
+							{
+								url: 'https://t.co/abc123',
+								expanded_url: 'https://example.com',
+								display_url: 'example.com',
+								indices: [11, 34]
+							}
+						]
+					}
+				}
+			};
+
+			const simpleTweet = convertToSimpleTweet(mockTweet);
+
+			expect(simpleTweet.urls).toBeDefined();
+			expect(simpleTweet.urls?.length).toBe(1);
+			expect(simpleTweet.urls?.[0].indices).toEqual([11, 34]);
+		});
+
+		it('should handle undefined indices in urls', () => {
+			const mockTweet: any = {
+				__typename: 'Tweet',
+				rest_id: '67890',
+				legacy: {
+					full_text: 'Check out https://example.com',
+					created_at: '2024-01-01T00:00:00Z',
+					user_id_str: '12345',
+					entities: {
+						urls: [
+							{
+								url: 'https://t.co/abc123',
+								expanded_url: 'https://example.com',
+								display_url: 'example.com'
+							}
+						]
+					}
+				}
+			};
+
+			const simpleTweet = convertToSimpleTweet(mockTweet);
+
+			expect(simpleTweet.urls).toBeDefined();
+			expect(simpleTweet.urls?.length).toBe(1);
+			expect(simpleTweet.urls?.[0].indices).toBeUndefined();
+		});
+	});
+
+	describe('ISimpleTweet note_urls field', () => {
+		it('should extract note_urls from note_tweet', () => {
+			const mockTweet: any = {
+				__typename: 'Tweet',
+				rest_id: '67890',
+				legacy: {
+					full_text: 'This is a Note tweet',
+					created_at: '2024-01-01T00:00:00Z',
+					user_id_str: '12345'
+				},
+				note_tweet: {
+					note_tweet_results: {
+						result: {
+							text: 'Note content with https://note-example.com',
+							entities: {
+								urls: [
+									{
+										url: 'https://t.co/def456',
+										expanded_url: 'https://note-example.com',
+										display_url: 'note-example.com',
+										indices: [20, 43]
+									}
+								]
+							}
+						}
+					}
+				}
+			};
+
+			const simpleTweet = convertToSimpleTweet(mockTweet);
+
+			expect(simpleTweet.note_urls).toBeDefined();
+			expect(simpleTweet.note_urls?.length).toBe(1);
+			expect(simpleTweet.note_urls?.[0].url).toBe('https://t.co/def456');
+			expect(simpleTweet.note_urls?.[0].expanded_url).toBe('https://note-example.com');
+			expect(simpleTweet.note_urls?.[0].display_url).toBe('note-example.com');
+			expect(simpleTweet.note_urls?.[0].indices).toEqual([20, 43]);
+		});
+
+		it('should not include note_urls when note_tweet has no urls', () => {
+			const mockTweet: any = {
+				__typename: 'Tweet',
+				rest_id: '67890',
+				legacy: {
+					full_text: 'This is a Note tweet',
+					created_at: '2024-01-01T00:00:00Z',
+					user_id_str: '12345'
+				},
+				note_tweet: {
+					note_tweet_results: {
+						result: {
+							text: 'Note content without URLs',
+							entities: {}
+						}
+					}
+				}
+			};
+
+			const simpleTweet = convertToSimpleTweet(mockTweet);
+
+			expect(simpleTweet.note_urls).toBeUndefined();
+		});
+
+		it('should not include note_urls when note_tweet is not present', () => {
+			const mockTweet: any = {
+				__typename: 'Tweet',
+				rest_id: '67890',
+				legacy: {
+					full_text: 'Regular tweet',
+					created_at: '2024-01-01T00:00:00Z',
+					user_id_str: '12345'
+				}
+			};
+
+			const simpleTweet = convertToSimpleTweet(mockTweet);
+
+			expect(simpleTweet.note_urls).toBeUndefined();
+		});
+	});
 	describe('text_range field', () => {
 		it('should extract display_text_range as text_range', () => {
 			const mockTweet: any = {

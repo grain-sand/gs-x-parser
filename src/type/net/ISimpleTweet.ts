@@ -51,4 +51,6 @@ export interface ISimpleTweet {
   quality?: TweetQuality;
   /** Note推文文本，对应 note_tweet.note_tweet_results.result.text */
   note_text?: string;
+  /** Note推文中的URL数组 */
+  note_urls?: ISimpleUrl[];
 }
