@@ -72,7 +72,8 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 		is_retweet: !!tweetData.retweeted_status_id_str,
 		retweeted_status_id: tweetData.retweeted_status_id_str,
 		quoted_status_id: tweetData.quoted_status_id_str,
-		quality: tweetQuality
+		quality: tweetQuality,
+		note_text: tweet.note_tweet?.note_tweet_results?.result?.text
 	};
 
 	if (options?.includeOriginalTweet) {

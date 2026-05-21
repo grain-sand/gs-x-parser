@@ -3,8 +3,9 @@
  */
 import { EligibilityType, LegacyCardBindingKeyType, LegacyCardBindingValueType, ViewState } from './ITypes';
 import {IUser} from "./IUser";
-import {ITweetBase} from "./ITweetBase";
+import {ITweetBase, IHashtagEntity, IUserMentionEntity} from "./ITweetBase";
 import {IMediaEntity} from "./IMediaEntity";
+import {IUrlEntity} from "./IUserBase";
 
 /**
  * 推文接口
@@ -46,6 +47,8 @@ export interface ITweet {
   quoted_status_result?: IQuotedStatusResult;
   /** 转发状态结果 */
   retweeted_status_result?: IRetweetedStatusResult;
+  /** Note推文 */
+  note_tweet?: INoteTweet;
   /** 超级关注回复用户结果 */
   superFollowsReplyUserResult?: ISuperFollowsReplyUserResult;
   /** 可见性结果 */
@@ -435,4 +438,48 @@ export interface IUserValue {
 export interface IGrokTranslatedPostWithAvailability {
   /** 是否可用 */
   is_available?: boolean;
+}
+
+/**
+ * Note推文接口
+ */
+export interface INoteTweet {
+  /** 是否可展开 */
+  is_expandable?: boolean;
+  /** Note推文结果 */
+  note_tweet_results?: INoteTweetResults;
+}
+
+/**
+ * Note推文结果接口
+ */
+export interface INoteTweetResults {
+  /** 结果 */
+  result?: INoteTweetResult;
+}
+
+/**
+ * Note推文结果数据接口
+ */
+export interface INoteTweetResult {
+  /** ID */
+  id?: string;
+  /** 文本内容 */
+  text?: string;
+  /** 实体集合 */
+  entity_set?: INoteTweetEntitySet;
+}
+
+/**
+ * Note推文实体集合接口
+ */
+export interface INoteTweetEntitySet {
+  /** 话题标签数组 */
+  hashtags?: IHashtagEntity[];
+  /** 符号数组 */
+  symbols?: any[];
+  /** URL数组 */
+  urls?: IUrlEntity[];
+  /** 用户提及数组 */
+  user_mentions?: IUserMentionEntity[];
 }

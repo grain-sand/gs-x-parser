@@ -148,6 +148,32 @@ describe('XParser', () => {
 			expect(simpleTweet.photos?.length).toBe(1);
 			expect(simpleTweet.urls).toBeDefined();
 			expect(simpleTweet.urls?.length).toBe(1);
+			expect(simpleTweet.note_text).toBeUndefined();
+		});
+
+		it('should parse note_tweet to note_text', () => {
+			const mockTweetWithNote: any = {
+				__typename: 'Tweet',
+				rest_id: '67891',
+				legacy: {
+					full_text: 'Check out my note',
+					created_at: '2024-01-02T00:00:00Z',
+					user_id_str: '12345'
+				},
+				note_tweet: {
+					note_tweet_results: {
+						result: {
+							text: 'This is a note tweet content'
+						}
+					}
+				}
+			};
+
+			const simpleTweet = convertToSimpleTweet(mockTweetWithNote);
+
+			expect(simpleTweet.rest_id).toBe('67891');
+			expect(simpleTweet.full_text).toBe('Check out my note');
+			expect(simpleTweet.note_text).toBe('This is a note tweet content');
 		});
 	});
 
