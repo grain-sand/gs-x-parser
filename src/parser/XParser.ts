@@ -46,7 +46,7 @@ export class XParser {
       const allTweets = tweets.map(tweet => {
         const userId = tweet.legacy?.user_id_str || tweet.user_id_str;
         const user = userMap.get(userId || '');
-        return convertToSimpleTweet(tweet, user);
+        return convertToSimpleTweet(tweet, user, options);
       });
 
       // 分类推文

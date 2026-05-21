@@ -1,6 +1,6 @@
 {
 	"name": "gs-x-parser",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"author": {
 		"name": "grain-sand"
 	},
@@ -11,6 +11,7 @@
 		"test:browser": "vitest run --environment browser"
 	},
 	"dependencies": {
+		"gs-base": "^0.1.22",
 		"gs-dom": "^0.2.6",
 		"gs-web-hooks": "^1.0.0"
 	},

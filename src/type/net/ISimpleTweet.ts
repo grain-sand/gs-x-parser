@@ -4,12 +4,17 @@
 import { ISimplePhoto, ISimpleVideo, ISimpleGif, ISimpleUrl } from './ISimpleMedia';
 import { ISimpleUser } from './ISimpleUser';
 import { TweetQuality } from './ITypes';
+import { ITweet } from './ITweet';
 
 export interface ISimpleTweet {
   /** 推文REST ID */
   rest_id: string;
   /** 推文完整文本 */
   full_text: string;
+  /** 显示文本范围，对应原始数据的 display_text_range */
+  text_range?: number[];
+  /** 原始 ITweet 数据（可选，根据解析选项决定是否包含） */
+  original_tweet?: ITweet;
   /** 创建时间（Unix时间戳，毫秒） */
   created_at: number;
   /** 用户信息 */

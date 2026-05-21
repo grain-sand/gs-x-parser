@@ -1,14 +1,17 @@
 import {
 	IMediaEntity,
+	ISimpleGif,
 	ISimplePhoto,
 	ISimpleTweet,
 	ISimpleUrl,
 	ISimpleVideo,
-	ISimpleGif,
 	ITweet,
+	ITweetLegacy,
 	IUser
 } from '../../type';
 import {convertToSimpleUser} from './convertToSimpleUser';
+import {IXParserOptions} from '../IXParserOptions';
+import {cleanNullField} from "gs-base/basic";
 
 /**
  * 根据比特率获取视频质量
@@ -25,9 +28,10 @@ function getVideoQuality(bitrate: number): string {
  * 将ITweet转换为ISimpleTweet
  * @param tweet ITweet对象
  * @param user IUser对象（可选）
+ * @param options 解析选项（可选）
  * @returns ISimpleTweet
  */
-export function convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet {
+export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXParserOptions): ISimpleTweet {
 	// 提取推文数据，优先使用 legacy 字段，其次直接使用 tweet 对象
 	const tweetData = tweet.legacy || tweet;
 	// 提取推文质量
@@ -50,6 +54,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet 
 	const simpleTweet: ISimpleTweet = {
 		rest_id: tweet.rest_id,
 		full_text: tweetData.full_text || '',
+		text_range: (tweetData as ITweetLegacy)?.display_text_range,
 		created_at: tweetData.created_at ? new Date(tweetData.created_at).getTime() : -1,
 		user: user ? convertToSimpleUser(user) : {
 			rest_id: tweetData.user_id_str || '',
@@ -69,6 +74,10 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet 
 		quoted_status_id: tweetData.quoted_status_id_str,
 		quality: tweetQuality
 	};
+
+	if (options?.includeOriginalTweet) {
+		simpleTweet.original_tweet = tweet;
+	}
 
 	// 提取媒体
 	const media = tweetData.extended_entities?.media || tweetData.entities?.media;
@@ -190,5 +199,5 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser): ISimpleTweet 
 		if (urls.length > 0) simpleTweet.urls = urls;
 	}
 
-	return simpleTweet;
+	return cleanNullField(simpleTweet);
 }
