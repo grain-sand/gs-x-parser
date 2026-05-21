@@ -3,10 +3,10 @@ import {
 	ISimpleGif,
 	ISimplePhoto,
 	ISimpleTweet,
-	ISimpleUrl,
 	ISimpleVideo,
 	ITweet,
 	ITweetLegacy,
+	IUrlEntity,
 	IUser
 } from '../../type';
 import {convertToSimpleUser} from './convertToSimpleUser';
@@ -138,6 +138,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 					media_url_https: mediaItem.media_url_https || '',
 					display_url: mediaItem.display_url || '',
 					expanded_url: mediaItem.expanded_url || '',
+					indices: mediaItem.indices,
 					sizes: simpleSizes,
 					original_info: simpleOriginalInfo
 				});
@@ -161,6 +162,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 					media_url_https: mediaItem.media_url_https || '',
 					display_url: mediaItem.display_url || '',
 					expanded_url: mediaItem.expanded_url || '',
+					indices: mediaItem.indices,
 					aspect_ratio: mediaItem.video_info?.aspect_ratio,
 					duration_millis: mediaItem.video_info?.duration_millis,
 					mp4: mp4Videos,
@@ -177,6 +179,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 					media_url_https: mediaItem.media_url_https || '',
 					display_url: mediaItem.display_url || '',
 					expanded_url: mediaItem.expanded_url || '',
+					indices: mediaItem.indices,
 					aspect_ratio: mediaItem.video_info?.aspect_ratio,
 					duration_millis: mediaItem.video_info?.duration_millis,
 					mp4: mp4Video?.url
@@ -191,7 +194,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 
 	// 提取URL
 	if (tweetData.entities?.urls?.length) {
-		const urls: ISimpleUrl[] = tweetData.entities.urls.map((url: any) => ({
+		const urls: IUrlEntity[] = tweetData.entities.urls.map((url: any) => ({
 			url: url.url || '',
 			expanded_url: url.expanded_url || '',
 			display_url: url.display_url || '',
@@ -203,7 +206,7 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 
 	// 提取Note推文中的URL
 	if (tweet.note_tweet?.note_tweet_results?.result?.entity_set?.urls?.length) {
-		const noteUrls: ISimpleUrl[] = tweet.note_tweet.note_tweet_results.result.entity_set.urls.map((url: any) => ({
+		const noteUrls: IUrlEntity[] = tweet.note_tweet.note_tweet_results.result.entity_set.urls.map((url: any) => ({
 			url: url.url || '',
 			expanded_url: url.expanded_url || '',
 			display_url: url.display_url || '',

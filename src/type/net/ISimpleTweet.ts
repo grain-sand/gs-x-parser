@@ -1,7 +1,8 @@
 /**
  * 简单推文类型，仅保留必须的标识字段、核心数据字段、用于显示的字段
  */
-import { ISimplePhoto, ISimpleVideo, ISimpleGif, ISimpleUrl } from './ISimpleMedia';
+import { ISimplePhoto, ISimpleVideo, ISimpleGif } from './ISimpleMedia';
+import { IUrlEntity } from './IUserBase';
 import { ISimpleUser } from './ISimpleUser';
 import { TweetQuality } from './ITypes';
 import { ITweet } from './ITweet';
@@ -46,11 +47,11 @@ export interface ISimpleTweet {
   /** 动态图片媒体数组 */
   gifs?: ISimpleGif[];
   /** URL数组 */
-  urls?: ISimpleUrl[];
+  urls?: IUrlEntity[];
   /** 推文质量 */
   quality?: TweetQuality;
   /** Note推文文本，对应 note_tweet.note_tweet_results.result.text */
   note_text?: string;
   /** Note推文中的URL数组 */
-  note_urls?: ISimpleUrl[];
+  note_urls?: IUrlEntity[];
 }

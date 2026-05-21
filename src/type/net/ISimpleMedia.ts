@@ -2,18 +2,15 @@
  * 简单媒体类型，仅保留各子类型、各品质的URL与尺寸、说明
  */
 import { MediaType, VideoQuality } from './ITypes';
+import { IUrlEntity } from './IUserBase';
 
-export interface ISimpleMedia {
+export interface ISimpleMedia extends IUrlEntity {
   /** 媒体键 */
   media_key?: string;
   /** 媒体类型 */
   type: MediaType;
   /** 媒体URL */
   media_url_https: string;
-  /** 显示URL */
-  display_url?: string;
-  /** 展开URL */
-  expanded_url?: string;
 }
 
 /**
@@ -94,18 +91,4 @@ export interface ISimpleMP4Video {
   url: string;
   /** 质量 */
   quality?: VideoQuality;
-}
-
-/**
- * 简单URL类型
- */
-export interface ISimpleUrl {
-  /** URL */
-  url: string;
-  /** 展开URL */
-  expanded_url?: string;
-  /** 显示URL */
-  display_url?: string;
-  /** 文本位置索引 */
-  indices?: number[];
 }

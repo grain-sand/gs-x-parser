@@ -9,7 +9,7 @@ import {XParser} from '../src';
 import {convertToSimpleTweet} from '../src/parser/utils/convertToSimpleTweet';
 
 describe('ISimpleTweet New Features', () => {
-	describe('ISimpleUrl indices field', () => {
+	describe('IUrlEntity indices field', () => {
 		it('should extract indices from tweet entities urls', () => {
 			const mockTweet: any = {
 				__typename: 'Tweet',

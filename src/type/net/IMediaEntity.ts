@@ -3,27 +3,20 @@
  */
 
 import {IColorPalette} from "./ITweet";
+import {IUrlEntity} from "./IUserBase";
 
 /**
  * 媒体实体接口
  */
-export interface IMediaEntity {
-  /** 显示URL */
-  display_url?: string;
-  /** 展开URL */
-  expanded_url?: string;
+export interface IMediaEntity extends IUrlEntity {
   /** ID字符串 */
   id_str?: string;
-  /** 索引 */
-  indices?: number[];
   /** 媒体键 */
   media_key?: string;
   /** 媒体URL */
   media_url_https?: string;
   /** 类型 */
   type?: string;
-  /** URL */
-  url?: string;
   /** 额外媒体信息 */
   additional_media_info?: IAdditionalMediaInfo;
   /** 扩展媒体可用性 */
