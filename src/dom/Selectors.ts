@@ -11,6 +11,8 @@ export const previewVideoSelector = `${cellPreviewSelector}:not([aria-label*=GIF
 // primaryRegionSelector
 export const primaryRegionSelector = 'main [data-testid="primaryColumn"] [role="region"]'
 
+//  export const cellPreviewSelector = `${cellSelector}:has([data-testid="previewInterstitial"])`
+
 export const primaryCellSelector = `${primaryRegionSelector} ${cellSelector}`
 
 export const primaryCellInnerSelector = `${primaryRegionSelector} ${cellInnerSelector}`
