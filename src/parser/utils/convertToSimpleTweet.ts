@@ -216,5 +216,14 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 		if (noteUrls.length > 0) simpleTweet.note_urls = noteUrls;
 	}
 
+	// 提取Grok翻译数据
+	if (tweet.grok_translated_post_with_availability?.data?.translation) {
+		simpleTweet.grok_translated = {
+			text: tweet.grok_translated_post_with_availability.data.translation,
+			source_lang: tweet.grok_translated_post_with_availability.data.source_language,
+			dest_lang: tweet.grok_translated_post_with_availability.data.destination_language
+		};
+	}
+
 	return cleanNullField(simpleTweet);
 }

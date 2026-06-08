@@ -438,6 +438,24 @@ export interface IUserValue {
 export interface IGrokTranslatedPostWithAvailability {
   /** 是否可用 */
   is_available?: boolean;
+  /** 翻译数据 */
+  data?: IGrokTranslationData;
+}
+
+/**
+ * Grok翻译数据接口
+ */
+export interface IGrokTranslationData {
+  /** 关联数据 */
+  associated_data?: Record<string, unknown>;
+  /** 目标语言 */
+  destination_language?: string;
+  /** 实体 */
+  entities?: INoteTweetEntitySet;
+  /** 源语言 */
+  source_language?: string;
+  /** 翻译文本 */
+  translation?: string;
 }
 
 /**

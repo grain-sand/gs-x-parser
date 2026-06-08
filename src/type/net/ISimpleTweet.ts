@@ -54,4 +54,13 @@ export interface ISimpleTweet {
   note_text?: string;
   /** Note推文中的URL数组 */
   note_urls?: IUrlEntity[];
+  /** Grok翻译数据（简化版） */
+  grok_translated?: {
+    /** 翻译文本 */
+    text: string;
+    /** 源语言 */
+    source_lang?: string;
+    /** 目标语言 */
+    dest_lang?: string;
+  };
 }
