@@ -63,4 +63,10 @@ export interface ISimpleTweet {
     /** 目标语言 */
     dest_lang?: string;
   };
+  /** 是否为广告推文（包括推广推文） */
+  is_ad?: boolean;
+  /** 是否为探索更多内容 */
+  is_explore_more?: boolean;
+  /** 是否为推荐推文 */
+  is_recommendation?: boolean;
 }

@@ -27,21 +27,24 @@ export function filterTweets<T extends ISimpleTweet | ITweet>(convertedTweets: T
     const restId = originalTweet?.rest_id || '';
     const entryId = (originalTweet as any)?.entryId || '';
 
-    // 判断推文类型
+    // 判断推文类型并设置标识字段
     if (restId.startsWith(IdPrefixes.PromotedTweet) || entryId.startsWith(IdPrefixes.PromotedTweet)) {
       // 推广推文视为广告
+      (tweet as ISimpleTweet).is_ad = true;
       ads.push(tweet);
       if (options.includeAds) {
         tweets.push(tweet);
       }
     } else if (restId.includes('explore') || entryId.includes('tweetdetailrelatedtweets')) {
       // 探索更多内容，包括相关推文
+      (tweet as ISimpleTweet).is_explore_more = true;
       exploreMore.push(tweet);
       if (options.includeExploreMore) {
         tweets.push(tweet);
       }
     } else if (restId.includes('recommendation') || restId.includes('suggestion') || entryId.includes('pinned-tweets')) {
       // 推荐推文
+      (tweet as ISimpleTweet).is_recommendation = true;
       recommendations.push(tweet);
       if (options.includeRecommendations) {
         tweets.push(tweet);

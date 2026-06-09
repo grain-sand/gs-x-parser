@@ -13,7 +13,11 @@ export function listenNet() {
 		before: (url) => timelineRegex.test(url) ? url : undefined,
 		after: (text) => {
 			const json = JSON.parse(text);
-			const {tweets, users, videos} = XParser.parseSimple(json);
+			const {tweets, users, videos} = XParser.parseSimple(json, {
+				includeAds: true,
+				includeExploreMore: true,
+				includeRecommendations: true
+			});
 			const flag = ListenFlag.flag || {}
 			if (flag.enableVideoDetected && videos?.length) try {
 				trigger<CustomEventInit>(ListenTweetEvents.VideoDetected, {detail: videos});
