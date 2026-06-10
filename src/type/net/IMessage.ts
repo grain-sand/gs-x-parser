@@ -1,5 +1,4 @@
-import {IExtMediaColor, IMediaSizes, IMediaStats, IOriginalInfo} from "./IMediaEntity";
-import {IColorPalette} from "./ITweet";
+import {IColorPalette, IExtMediaColor, IMediaSizes, IMediaStats, IOriginalInfo} from "./IMediaEntity";
 import {IUrlEntity, IUserBase} from "./IUserBase";
 
 export interface IConversationTimeline {

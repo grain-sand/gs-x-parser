@@ -1,8 +1,3 @@
-/**
- * 媒体相关类型定义
- */
-
-import {IColorPalette} from "./ITweet";
 import {IUrlEntity} from "./IUserBase";
 
 /**
@@ -191,6 +186,28 @@ export interface IFace {
 export interface IMediaFeature {
   /** 面部 */
   faces?: IFace[];
+}
+
+/**
+ * RGB颜色接口
+ */
+export interface IColorRGB {
+	/** 蓝色通道 */
+	blue?: number;
+	/** 绿色通道 */
+	green?: number;
+	/** 红色通道 */
+	red?: number;
+}
+
+/**
+ * 颜色调色板接口
+ */
+export interface IColorPalette {
+	/** RGB颜色 */
+	rgb?: IColorRGB;
+	/** 百分比 */
+	percentage?: number;
 }
 
 /**

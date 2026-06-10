@@ -1,10 +1,7 @@
-/**
- * 推文类型定义
- */
-import { EligibilityType, LegacyCardBindingKeyType, LegacyCardBindingValueType, ViewState } from './ITypes';
+import {EligibilityType, LegacyCardBindingKeyType, LegacyCardBindingValueType, ViewState} from './ITypes';
 import {IUser} from "./IUser";
-import {ITweetBase, IHashtagEntity, IUserMentionEntity} from "./ITweetBase";
-import {IMediaEntity} from "./IMediaEntity";
+import {IHashtagEntity, ITweetBase, IUserMentionEntity} from "./ITweetBase";
+import {IColorPalette, IMediaEntity} from "./IMediaEntity";
 import {IUrlEntity} from "./IUserBase";
 
 /**
@@ -354,28 +351,6 @@ export interface IImageValue {
 export interface IImageColorValue {
   /** 调色板 */
   palette?: IColorPalette[];
-}
-
-/**
- * 颜色调色板接口
- */
-export interface IColorPalette {
-  /** RGB颜色 */
-  rgb?: IColorRGB;
-  /** 百分比 */
-  percentage?: number;
-}
-
-/**
- * RGB颜色接口
- */
-export interface IColorRGB {
-  /** 蓝色通道 */
-  blue?: number;
-  /** 绿色通道 */
-  green?: number;
-  /** 红色通道 */
-  red?: number;
 }
 
 /**

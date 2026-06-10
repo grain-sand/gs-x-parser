@@ -1,5 +1,5 @@
 import {IUser} from "./IUser";
-import {IColorPalette} from "./ITweet";
+import {IColorPalette} from "./IMediaEntity";
 
 export interface ICommunityResult {
   result?: ICommunity;
