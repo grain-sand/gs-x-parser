@@ -8,6 +8,7 @@ export * from './dom/IModule'
 export * from './dom/IModuleMetadata'
 export * from './dom/IReactXCellDivProps'
 export * from './dom/IGetTweetVideoIdResult'
+export * from './dom/IRenderedTweet'
 export * from './net/IUser';
 export * from './net/IUserBase';
 export * from './net/ITweet';

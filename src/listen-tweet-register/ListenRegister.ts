@@ -1,4 +1,4 @@
-import {ISimpleTweet, ISimpleUser, ListenTweetEvents} from "../type";
+import {IRenderedTweet, ISimpleTweet, ISimpleUser, ListenTweetEvents} from "../type";
 import {on} from "gs-dom";
 
 export class ListenRegister {
@@ -15,7 +15,7 @@ export class ListenRegister {
 		on(ListenTweetEvents.UserDetected, ({detail}: CustomEvent) => listener(detail))
 	}
 
-	static addTweetRenderedListener(listener: (tweetIds: string[]) => void) {
+	static addTweetRenderedListener(listener: (tweets: IRenderedTweet[]) => void) {
 		on(ListenTweetEvents.TweetRendered, ({detail}: CustomEvent) => listener(detail))
 	}
 

@@ -1,6 +1,6 @@
 import {observe} from "gs-dom/observer";
 import {trigger} from "gs-dom/event";
-import {ListenTweetEvents} from "../type";
+import {IRenderedTweet, ListenTweetEvents} from "../type";
 import {ListenFlag} from "./ListenFlag";
 import {
 	parseTweetIdByProps,
@@ -19,14 +19,15 @@ function addedElements(els: HTMLElement[]) {
 		return;
 	}
 
-	const tweets: string[] = []
+	const tweetMap: Map<string, IRenderedTweet> = new Map()
+
 	// const videoMap: Map<string, IGetTweetVideoIdResult> = new Map()
 
 	function parseTweetId(el: HTMLElement) {
 		const id = parseTweetIdByProps(el);
-		if (id) {
-			tweets.push(id)
-		}
+		if (!id || tweetMap.has(id)) return
+		el = el.matches(primaryCellSelector) ? el : el.closest(primaryCellSelector) as HTMLElement
+		tweetMap.set(id, {id, url: location.href, top: parseInt(el.style.transform?.replace(/\D+/g, ''))})
 	}
 
 	// function parseVideoId(el: HTMLElement, defaultTweet?: boolean) {
@@ -59,8 +60,8 @@ function addedElements(els: HTMLElement[]) {
 			console.warn(e)
 		}
 	}
-	if (tr && tweets.length) {
-		trigger<CustomEventInit>(ListenTweetEvents.TweetRendered, {detail: tweets});
+	if (tr && tweetMap.size) {
+		trigger<CustomEventInit>(ListenTweetEvents.TweetRendered, {detail: [...tweetMap.values()]});
 	}
 	// if (vr && videoMap.size) {
 	// 	trigger<CustomEventInit>(ListenTweetEvents.VideoRendered, {detail: [...videoMap.values()]});
