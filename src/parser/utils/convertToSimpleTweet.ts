@@ -223,6 +223,20 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 			source_lang: tweet.grok_translated_post_with_availability.data.source_language,
 			dest_lang: tweet.grok_translated_post_with_availability.data.destination_language
 		};
+
+		// 提取翻译中的URL
+		if (tweet.grok_translated_post_with_availability.data.entities?.urls?.length) {
+			const translatedUrls: IUrlEntity[] = tweet.grok_translated_post_with_availability.data.entities.urls.map((url: any) => ({
+				url: url.url || '',
+				expanded_url: url.expanded_url || '',
+				display_url: url.display_url || '',
+				indices: url.indices
+			}));
+
+			if (translatedUrls.length > 0) {
+				simpleTweet.grok_translated.urls = translatedUrls;
+			}
+		}
 	}
 
 	return cleanNullField(simpleTweet);

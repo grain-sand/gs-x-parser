@@ -55,18 +55,22 @@ export interface ISimpleTweet {
   /** Note推文中的URL数组 */
   note_urls?: IUrlEntity[];
   /** Grok翻译数据（简化版） */
-  grok_translated?: {
-    /** 翻译文本 */
-    text: string;
-    /** 源语言 */
-    source_lang?: string;
-    /** 目标语言 */
-    dest_lang?: string;
-  };
+  grok_translated?: ISimpleGrokTranslated
   /** 是否为广告推文（包括推广推文） */
   is_ad?: boolean;
   /** 是否为探索更多内容 */
   is_explore_more?: boolean;
   /** 是否为推荐推文 */
   is_recommendation?: boolean;
+}
+
+export interface ISimpleGrokTranslated {
+	/** 翻译文本 */
+	text: string;
+	/** 翻译URL数组 */
+	urls?: IUrlEntity[];
+	/** 源语言 */
+	source_lang?: string;
+	/** 目标语言 */
+	dest_lang?: string;
 }
