@@ -8,6 +8,8 @@ export const itemSelector = `${cellSelector} [role="listitem"]`
 
 export const previewVideoSelector = `${cellPreviewSelector}:not([aria-label*=GIF])`
 
+export const videoComponentSelector = `${cellSelector} [data-testid="videoComponent"]`
+
 // primaryRegionSelector
 export const primaryRegionSelector = 'main [data-testid="primaryColumn"] [role="region"]'
 
@@ -22,3 +24,7 @@ export const primaryItemSelector = `${primaryRegionSelector} ${itemSelector}`
 export const primaryTweetSelector = [primaryCellSelector, primaryItemSelector].join(',')
 
 export const primaryPreviewVideoSelector = `${primaryRegionSelector} ${previewVideoSelector}`
+
+export const primaryVideoComponentSelector = `${primaryRegionSelector} ${videoComponentSelector}`
+
+export const primaryVideoSelector = [primaryPreviewVideoSelector, primaryVideoComponentSelector].join(',')
