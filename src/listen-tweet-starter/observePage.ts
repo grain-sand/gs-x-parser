@@ -9,9 +9,18 @@ import {
 	primaryItemSelector,
 	primaryTweetSelector
 } from "../dom";
+import {defHideProp} from "./defHideProp";
 
 const containerSelector = 'main,main *'
 const itemAndInnerSelector = [primaryItemSelector, primaryCellInnerSelector].join(',')
+
+const ObservePageKey = '__listen-tweet-observe-page-key'
+const ObservePageVersion = 1;
+
+interface IObservePageRecord {
+	observer: MutationObserver
+	version: number
+}
 
 function addedElements(els: HTMLElement[]) {
 	const {enableVideoRendered: vr, enableTweetRendered: tr} = ListenFlag.flag || {}
@@ -70,5 +79,15 @@ function addedElements(els: HTMLElement[]) {
 }
 
 export function observePage() {
-	observe({subtree: true, addedElements})
+	try {
+		const record = self[ObservePageKey] as IObservePageRecord
+		if (record?.version >= ObservePageVersion) return
+		record?.observer?.disconnect()
+	} catch {
+	}
+	const observer = observe({subtree: true, addedElements})
+	defHideProp<IObservePageRecord>(ObservePageKey, {
+		observer,
+		version: ObservePageVersion,
+	})
 }

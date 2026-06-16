@@ -19,4 +19,8 @@ export const enum ListenTweetEvents {
 	 * 视频渲染
 	 */
 	// VideoRendered = '__listen-tweet-video-rendered',
+	/**
+	 * 分页结束
+	 */
+	PageEnd = '__listen-tweet-page-end',
 }

@@ -4,9 +4,7 @@ import {listenNet} from "./listenNet";
 import {observePage} from "./observePage";
 
 export function startListen(option: IListenTweetOption) {
-	if (ListenFlag.isInit(option)) {
-		return;
-	}
+	ListenFlag.checkInit(option)
 	listenNet()
 	observePage()
 }

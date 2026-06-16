@@ -1,4 +1,5 @@
 import {IListenTweetOption} from "../type";
+import {defHideProp} from "./defHideProp";
 
 const ListenFlagKey = '__listen-tweet-flag-key'
 
@@ -10,12 +11,10 @@ export class ListenFlag {
 		return this.#flag || (this.#flag = self[ListenFlagKey]);
 	}
 
-	static isInit(arg?: IListenTweetOption): boolean {
-		const init = !!this.flag;
+	static checkInit(arg?: IListenTweetOption): void {
 		if (arg) {
 			this.update(arg)
 		}
-		return init;
 	}
 
 	static update(arg?: IListenTweetOption): void {
@@ -23,12 +22,7 @@ export class ListenFlag {
 			if (arg?.enableTweetDetected) self[ListenFlagKey].enableTweetDetected = true;
 			if (arg?.enableUserDetected) self[ListenFlagKey].enableUserDetected = true;
 		} else {
-			Object.defineProperty(self, ListenFlagKey, {
-				value: {...arg},
-				enumerable: false,
-				configurable: false,
-				writable: false,
-			})
+			defHideProp(ListenFlagKey, {...arg});
 		}
 		this.#flag = self[ListenFlagKey];
 	}

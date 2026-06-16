@@ -1,5 +1,5 @@
 import {IRenderedTweet, ISimpleTweet, ISimpleUser, ListenTweetEvents} from "../type";
-import {on} from "gs-dom";
+import {on} from "gs-dom/event";
 
 export class ListenRegister {
 
@@ -23,4 +23,7 @@ export class ListenRegister {
 	// 	on(ListenTweetEvents.VideoRendered, ({detail}: CustomEvent) => listener(detail))
 	// }
 
+	static addPageEndListener(listener: (url: string) => void) {
+		on(ListenTweetEvents.PageEnd, ({detail}: CustomEvent) => listener(detail))
+	}
 }
