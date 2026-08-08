@@ -49,6 +49,26 @@ export interface ITimelineItemContent {
   display_type?: string;
   text?: string;
   socialContext?: ISocialContext;
+  /** 高亮信息 */
+  highlights?: IHighlights;
+}
+
+/**
+ * 高亮信息接口
+ */
+export interface IHighlights {
+  /** 文本高亮数组 */
+  textHighlights?: ITextHighlight[];
+}
+
+/**
+ * 文本高亮接口
+ */
+export interface ITextHighlight {
+  /** 结束索引 */
+  endIndex?: number;
+  /** 开始索引 */
+  startIndex?: number;
 }
 
 export interface ISocialContext {
@@ -104,6 +124,8 @@ export interface ITimelineModuleItem {
 export interface ITimelineModuleItemContent {
   itemContent?: ITimelineItemContent;
   clientEventInfo?: ITimelineClientEventInfo;
+  /** 反馈信息 */
+  feedbackInfo?: IFeedbackInfo;
 }
 
 export interface ITimelineClientEventInfo {

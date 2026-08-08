@@ -2,7 +2,7 @@
  * 用户类型定义
  */
 import {UrlType, UserDisplayType, UserLabelType, VerifiedType} from './ITypes';
-import {IUserBase} from "./IUserBase";
+import {IUserBase, IUserEntities} from "./IUserBase";
 
 /**
  * 用户接口
@@ -14,14 +14,20 @@ export interface IUser {
   id: string;
   /** 用户REST ID */
   rest_id: string;
+  /** 操作计数 */
+  action_counts?: IActionCounts;
   /** 附属高亮标签 */
   affiliates_highlighted_label?: IAffiliatesHighlightedLabel;
   /** 头像 */
   avatar?: IAvatar;
+  /** 横幅 */
+  banner?: IBanner;
   /** 核心数据 */
   core?: IUserCore;
   /** 私信权限 */
   dm_permissions?: IDmPermissions;
+  /** 是否已发送关注请求 */
+  follow_request_sent?: boolean;
   /** 是否有毕业访问权限 */
   has_graduated_access?: boolean;
   /** 是否蓝V验证 */
@@ -30,16 +36,28 @@ export interface IUser {
   location?: ILocation | string;
   /** 媒体权限 */
   media_permissions?: IMediaPermissions;
+  /** 通知设置 */
+  notifications_settings?: INotificationsSettings;
   /** 模仿评论粉丝标签 */
   parody_commentary_fan_label?: string;
+  /** 固定项目 */
+  pinned_items?: IPinnedItems;
+  /** 是否敏感内容 */
+  possibly_sensitive?: boolean;
   /** 隐私设置 */
   privacy?: IPrivacy;
-  /** 头像形状 */
-  profile_image_shape?: string;
   /** 个人简介 */
   profile_bio?: IProfileBio;
   /** 个人简介语言 */
   profile_description_language?: string;
+  /** 头像形状 */
+  profile_image_shape?: string;
+  /** 个人资料元数据 */
+  profile_metadata?: IProfileMetadata;
+  /** 个人资料翻译 */
+  profile_translation?: IProfileTranslation;
+  /** 关系计数 */
+  relationship_counts?: IRelationshipCounts;
   /** 关系视角 */
   relationship_perspectives?: IRelationshipPerspectives;
   /** 遗留用户数据 */
@@ -54,8 +72,12 @@ export interface IUser {
   super_following?: boolean;
   /** 小费设置 */
   tipjar_settings?: ITipjarSettings;
+  /** 推文计数 */
+  tweet_counts?: ITweetCounts;
   /** 验证信息 */
   verification?: IVerification;
+  /** 网站 */
+  website?: IWebsite;
   /** 直接在用户对象上的字段（用于通知数据） */
   name?: string;
   screen_name?: string;
@@ -86,7 +108,6 @@ export interface IUser {
   default_profile?: boolean;
   default_profile_image?: boolean;
   following?: boolean;
-  follow_request_sent?: boolean;
   notifications?: boolean;
   blocking?: boolean;
   blocked_by?: boolean;
@@ -265,6 +286,10 @@ export interface IPrivacy {
 export interface IProfileBio {
   /** 描述 */
   description?: string;
+  /** 实体 */
+  entities?: IUserEntities;
+  /** 被限制的国家 */
+  withheld_in_countries?: string[];
 }
 
 /**
@@ -279,6 +304,8 @@ export interface IRelationshipPerspectives {
   followed_by?: boolean;
   /** 是否关注 */
   following?: boolean;
+  /** 是否实时关注 */
+  live_following?: boolean;
   /** 是否静音 */
   muting?: boolean;
 }
@@ -289,4 +316,80 @@ export interface IRelationshipPerspectives {
 export interface IVerification {
   /** 是否验证 */
   verified?: boolean;
+}
+
+/**
+ * 操作计数接口
+ */
+export interface IActionCounts {
+  /** 收藏数 */
+  favorites_count?: number;
+}
+
+/**
+ * 横幅接口
+ */
+export interface IBanner {
+  /** 图像URL */
+  image_url?: string;
+}
+
+/**
+ * 通知设置接口
+ */
+export interface INotificationsSettings {
+  /** 是否启用通知 */
+  notifications_enabled?: boolean;
+}
+
+/**
+ * 固定项目接口
+ */
+export interface IPinnedItems {
+  /** 固定推文ID字符串数组 */
+  tweet_ids_str?: string[];
+}
+
+/**
+ * 个人资料元数据接口
+ */
+export interface IProfileMetadata {
+  /** 个人资料间隙类型 */
+  profile_interstitial_type?: string;
+}
+
+/**
+ * 个人资料翻译接口
+ */
+export interface IProfileTranslation {
+  /** 翻译者类型 */
+  translator_type?: string;
+}
+
+/**
+ * 关系计数接口
+ */
+export interface IRelationshipCounts {
+  /** 粉丝数 */
+  followers?: number;
+  /** 关注数 */
+  following?: number;
+}
+
+/**
+ * 推文计数接口
+ */
+export interface ITweetCounts {
+  /** 媒体推文数 */
+  media_tweets?: number;
+  /** 推文总数 */
+  tweets?: number;
+}
+
+/**
+ * 网站接口
+ */
+export interface IWebsite {
+  /** URL */
+  url?: string;
 }

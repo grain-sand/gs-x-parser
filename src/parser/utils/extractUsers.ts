@@ -129,14 +129,14 @@ export function extractUsers(data: any): IUser[] {
       // 1. 必须有 __typename === 'User'
       // 2. 必须有 rest_id 或 id_str
       // 3. 不能有推文特征字段：core（特别是core.user_results）或 legacy.full_text
-      // 4. 应该有用户特征字段：如 name、screen_name 或 legacy 字段
+      // 4. 应该有用户特征字段：如 name、screen_name、core.name、core.screen_name、legacy 或 avatar
       const userId = obj.id_str || obj.rest_id;
       const isUser = obj.__typename === 'User' &&
                      userId &&
                      !userIds.has(userId) &&
                      !obj.core?.user_results &&
                      !obj.legacy?.full_text &&
-                     (obj.name || obj.screen_name || obj.legacy);
+                     (obj.name || obj.screen_name || obj.legacy || obj.core?.name || obj.core?.screen_name || obj.avatar);
 
       if (isUser) {
         // 添加 __typename 字段以保持一致性

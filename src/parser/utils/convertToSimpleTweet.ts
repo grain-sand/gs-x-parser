@@ -51,16 +51,25 @@ export function convertToSimpleTweet(tweet: ITweet, user?: IUser, options?: IXPa
 		tweetQuality = 'HighQuality';
 	}
 
+	// 获取用户对象，优先使用传入的user，其次尝试从tweet.core提取
+	let finalUser: IUser | undefined = user;
+	if (!finalUser) {
+		const inlineUser = tweet.core?.user_results?.result;
+		if (inlineUser && inlineUser.__typename === 'User') {
+			finalUser = inlineUser as IUser;
+		}
+	}
+
 	const simpleTweet: ISimpleTweet = {
 		rest_id: tweet.rest_id,
 		full_text: tweetData.full_text || '',
 		text_range: (tweetData as ITweetLegacy)?.display_text_range,
 		created_at: tweetData.created_at ? new Date(tweetData.created_at).getTime() : -1,
-		user: user ? convertToSimpleUser(user) : {
-			rest_id: tweetData.user_id_str || '',
-			name: '',
-			screen_name: '',
-			profile_image_url_https: ''
+		user: finalUser ? convertToSimpleUser(finalUser) : {
+			rest_id: tweetData.user_id_str || tweet.core?.user_results?.result?.rest_id || '',
+			name: tweet.core?.user_results?.result?.core?.name || '',
+			screen_name: tweet.core?.user_results?.result?.core?.screen_name || '',
+			profile_image_url_https: tweet.core?.user_results?.result?.avatar?.image_url || ''
 		},
 		retweet_count: tweetData.retweet_count,
 		favorite_count: tweetData.favorite_count,

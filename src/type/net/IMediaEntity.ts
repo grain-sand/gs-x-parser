@@ -1,4 +1,5 @@
 import {IUrlEntity} from "./IUserBase";
+import {IUserResults} from "./ITweet";
 
 /**
  * 媒体实体接口
@@ -34,14 +35,34 @@ export interface IMediaEntity extends IUrlEntity {
   ext_alt_text?: string | null;
   /** 扩展 */
   ext?: IExtMedia;
+  /** 源状态ID字符串 */
+  source_status_id_str?: string;
+  /** 源用户ID字符串 */
+  source_user_id_str?: string;
 }
 
 /**
  * 额外媒体信息接口
  */
 export interface IAdditionalMediaInfo {
+  /** 描述 */
+  description?: string;
+  /** 是否可嵌入 */
+  embeddable?: boolean;
   /** 是否可变现 */
   monetizable?: boolean;
+  /** 源用户 */
+  source_user?: ISourceUser;
+  /** 标题 */
+  title?: string;
+}
+
+/**
+ * 源用户接口
+ */
+export interface ISourceUser {
+  /** 用户结果 */
+  user_results?: IUserResults;
 }
 
 /**

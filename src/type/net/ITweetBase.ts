@@ -95,6 +95,8 @@ export interface IHashtagEntity {
  * 用户提及实体接口
  */
 export interface IUserMentionEntity {
+  /** ID */
+  id?: string;
   /** ID字符串 */
   id_str?: string;
   /** 名称 */

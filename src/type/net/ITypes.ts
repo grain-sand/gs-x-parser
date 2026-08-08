@@ -105,7 +105,7 @@ export type EligibilityType = typeof ELIGIBILITY_TYPES[number];
 /**
  * 显示类型常量
  */
-export const DISPLAY_TYPES = ['Carousel', 'Vertical', 'VerticalConversation', 'Classic', 'EntireTweet'] as const;
+export const DISPLAY_TYPES = ['Carousel', 'Vertical', 'VerticalConversation', 'Classic', 'EntireTweet', 'VerticalGrid'] as const;
 
 /**
  * 显示类型联合类型
@@ -115,7 +115,7 @@ export type DisplayType = typeof DISPLAY_TYPES[number];
 /**
  * 推文显示类型常量
  */
-export const TWEET_DISPLAY_TYPES = ['CondensedTweet', 'Tweet', 'SelfThread'] as const;
+export const TWEET_DISPLAY_TYPES = ['CondensedTweet', 'Tweet', 'SelfThread', 'MediaGrid'] as const;
 
 /**
  * 推文显示类型联合类型

@@ -12,6 +12,8 @@ export interface ITweet {
   __typename: string;
   /** 推文REST ID */
   rest_id: string;
+  /** 现金标签附件 */
+  cashtag_attachments?: any[];
   /** 是否有birdwatch注释 */
   has_birdwatch_notes?: boolean;
   /** 核心数据 */
@@ -23,7 +25,7 @@ export interface ITweet {
   /** Grok分析按钮 */
   grok_analysis_button?: boolean;
   /** Grok注释 */
-  grok_annotations?: Record<string, unknown>;
+  grok_annotations?: IGrokAnnotations;
   /** Grok翻译帖子可用性 */
   grok_translated_post_with_availability?: IGrokTranslatedPostWithAvailability;
   /** 之前的计数 */
@@ -52,6 +54,10 @@ export interface ITweet {
   visibility_results?: IVisibilityResults;
   /** 客户端事件信息 */
   clientEventInfo?: IClientEventInfo;
+  /** 限制操作结果（TweetWithVisibilityResults专用） */
+  limitedActionResults?: ILimitedActionResults;
+  /** 推文对象（TweetWithVisibilityResults专用，当__typename为TweetWithVisibilityResults时存在） */
+  tweet?: ITweet;
   /** 直接在推文对象上的字段（用于通知数据） */
   full_text?: string;
   created_at?: string;
@@ -69,6 +75,56 @@ export interface ITweet {
   entities?: any;
   extended_entities?: any;
   entryId?: string;
+}
+
+/**
+ * Grok注释接口
+ */
+export interface IGrokAnnotations {
+  /** Grok是否可编辑图像 */
+  is_image_editable_by_grok?: boolean;
+}
+
+/**
+ * 限制操作结果接口
+ */
+export interface ILimitedActionResults {
+  /** 限制操作数组 */
+  limited_actions?: ILimitedAction[];
+}
+
+/**
+ * 限制操作接口
+ */
+export interface ILimitedAction {
+  /** 操作类型 */
+  action?: string;
+  /** 提示 */
+  prompt?: ILimitedActionPrompt;
+}
+
+/**
+ * 限制操作提示接口
+ */
+export interface ILimitedActionPrompt {
+  /** 类型名称 */
+  __typename?: string;
+  /** CTA类型 */
+  cta_type?: string;
+  /** 标题 */
+  headline?: ILimitedActionPromptContent;
+  /** 副标题 */
+  subtext?: ILimitedActionPromptContent;
+}
+
+/**
+ * 限制操作提示内容接口
+ */
+export interface ILimitedActionPromptContent {
+  /** 实体数组 */
+  entities?: any[];
+  /** 文本 */
+  text?: string;
 }
 
 /**
@@ -213,6 +269,8 @@ export interface ITweetLegacy extends ITweetBase {
   bookmark_count?: number;
   /** 是否已书签 */
   bookmarked?: boolean;
+  /** 会话控制 */
+  conversation_control?: IConversationControl;
   /** 扩展实体 */
   extended_entities?: IExtendedEntities;
   /** 是否可编辑敏感内容 */
@@ -221,6 +279,42 @@ export interface ITweetLegacy extends ITweetBase {
   user_id_str?: string;
   /** 引用状态永久链接 */
   quoted_status_permalink?: IQuotedStatusPermalink;
+}
+
+/**
+ * 会话控制接口
+ */
+export interface IConversationControl {
+  /** 会话所有者结果 */
+  conversation_owner_results?: IConversationOwnerResults;
+  /** 策略 */
+  policy?: string;
+}
+
+/**
+ * 会话所有者结果接口
+ */
+export interface IConversationOwnerResults {
+  /** 结果 */
+  result?: IConversationOwnerResult;
+}
+
+/**
+ * 会话所有者结果接口
+ */
+export interface IConversationOwnerResult {
+  /** 类型名称 */
+  __typename?: string;
+  /** 核心数据 */
+  core?: IConversationOwnerCore;
+}
+
+/**
+ * 会话所有者核心接口
+ */
+export interface IConversationOwnerCore {
+  /** 屏幕名称 */
+  screen_name?: string;
 }
 
 /**
